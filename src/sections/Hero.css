@@ -2359,3 +2359,356 @@ summary span {
     right: 18px !important;
   }
 }
+
+/* =========================================================
+   VED EXIM HOME HERO — DESKTOP FOOTER / BOTTOM TYPOGRAPHY FIX
+   Keeps the three footer elements locked to the hero bottom.
+========================================================= */
+
+.hero-stage .hero-footer {
+  position: absolute !important;
+  left: 3vw !important;
+  right: 3vw !important;
+  bottom: 26px !important;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr !important;
+  align-items: center !important;
+  gap: 30px !important;
+  box-sizing: border-box !important;
+  z-index: 8 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 9px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  letter-spacing: 3px !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  color: rgba(244, 241, 235, .92) !important;
+  text-align: left !important;
+}
+
+.hero-stage .hero-footer > span:first-child {
+  justify-self: start !important;
+}
+
+.hero-stage .hero-footer > span:last-child {
+  justify-self: end !important;
+}
+
+.hero-stage .hero-footer .hero-scroll {
+  justify-self: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  min-width: 170px !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 8px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  letter-spacing: 3px !important;
+  color: rgba(244, 241, 235, .92) !important;
+}
+
+.hero-stage .hero-footer .scroll-line {
+  display: block !important;
+  width: 94px !important;
+  height: 1px !important;
+  flex: 0 0 94px !important;
+  background: rgba(244, 241, 235, .75) !important;
+}
+
+@media (min-width: 1400px) {
+  .hero-stage .hero-footer {
+    left: 3vw !important;
+    right: 3vw !important;
+    bottom: 28px !important;
+    font-size: 9px !important;
+    letter-spacing: 3.2px !important;
+  }
+
+  .hero-stage .hero-footer .hero-scroll {
+    min-width: 190px !important;
+    font-size: 8px !important;
+    letter-spacing: 3.2px !important;
+    gap: 18px !important;
+  }
+
+  .hero-stage .hero-footer .scroll-line {
+    width: 96px !important;
+    flex-basis: 96px !important;
+  }
+}
+
+@media (min-width: 1920px) {
+  .hero-stage .hero-footer {
+    left: 3.2vw !important;
+    right: 3.2vw !important;
+    bottom: 32px !important;
+    font-size: 10px !important;
+    letter-spacing: 3.5px !important;
+  }
+
+  .hero-stage .hero-footer .hero-scroll {
+    min-width: 210px !important;
+    font-size: 9px !important;
+    letter-spacing: 3.5px !important;
+  }
+
+  .hero-stage .hero-footer .scroll-line {
+    width: 104px !important;
+    flex-basis: 104px !important;
+  }
+}
+
+@media (min-width: 651px) and (max-width: 1399px) {
+  .hero-stage .hero-footer {
+    left: 3vw !important;
+    right: 3vw !important;
+    bottom: 24px !important;
+    font-size: clamp(8px, .65vw, 9px) !important;
+    letter-spacing: clamp(2.4px, .22vw, 3px) !important;
+  }
+
+  .hero-stage .hero-footer .hero-scroll {
+    min-width: 150px !important;
+    gap: 14px !important;
+    font-size: 7px !important;
+    letter-spacing: 2.5px !important;
+  }
+
+  .hero-stage .hero-footer .scroll-line {
+    width: 78px !important;
+    flex-basis: 78px !important;
+  }
+}
+
+/* Mobile keeps the existing compact footer sizing. */
+@media (max-width: 650px) {
+  .hero-stage .hero-footer {
+    left: 24px !important;
+    right: 24px !important;
+    bottom: 20px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 12px !important;
+    font-size: 5.5px !important;
+    letter-spacing: 1.8px !important;
+  }
+
+  .hero-stage .hero-footer .hero-scroll {
+    min-width: 0 !important;
+    gap: 9px !important;
+    font-size: 5.5px !important;
+    letter-spacing: 1.8px !important;
+  }
+
+  .hero-stage .hero-footer .scroll-line {
+    width: 42px !important;
+    flex-basis: 42px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-stage .hero-footer {
+    left: 18px !important;
+    right: 18px !important;
+    bottom: 18px !important;
+  }
+}
+
+/* =========================================================
+   VED EXIM HOME HERO — ALL 5 SLIDES LEFT-BOTTOM LOCK
+   Applies the same typography position to every transition.
+   The slide content stays above the footer and never returns
+   to the upper-left during slide changes.
+========================================================= */
+
+.hero-stage .hero-content {
+  position: absolute !important;
+  top: auto !important;
+  left: 8vw !important;
+  right: auto !important;
+  bottom: 17% !important;
+
+  width: min(760px, 52vw) !important;
+  max-width: 760px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  text-align: left !important;
+
+  /* Override the inline scroll transform from every slide. */
+  transform: none !important;
+
+  z-index: 7 !important;
+}
+
+.hero-stage .hero-eyebrow {
+  margin: 0 0 20px !important;
+  text-align: left !important;
+}
+
+.hero-stage .hero-title {
+  margin: 0 !important;
+  max-width: 760px !important;
+
+  text-align: left !important;
+  line-height: .86 !important;
+  letter-spacing: -0.055em !important;
+
+  /* Keep the same premium serif treatment on all 5 slides. */
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-weight: 400 !important;
+}
+
+.hero-stage .hero-title span {
+  display: inline !important;
+}
+
+.hero-stage .hero-title .hero-italic {
+  display: inline !important;
+}
+
+.hero-stage .hero-description {
+  max-width: 500px !important;
+  margin: 34px 0 0 !important;
+
+  text-align: left !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  line-height: 1.75 !important;
+}
+
+.hero-stage .hero-button {
+  margin-top: 34px !important;
+  margin-left: 0 !important;
+}
+
+/* Keep the five-slide transition content in the same position
+   even while the active slide opacity/transform is changing. */
+.hero-stage .hero-content[style] {
+  left: 8vw !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 17% !important;
+  transform: none !important;
+}
+
+/* Large desktop */
+@media (min-width: 1400px) {
+  .hero-stage .hero-content,
+  .hero-stage .hero-content[style] {
+    left: 8vw !important;
+    bottom: 17% !important;
+    width: min(780px, 52vw) !important;
+    max-width: 780px !important;
+  }
+
+  .hero-stage .hero-title {
+    font-size: clamp(78px, 8vw, 132px) !important;
+  }
+
+  .hero-stage .hero-description {
+    max-width: 510px !important;
+    margin-top: 36px !important;
+  }
+
+  .hero-stage .hero-button {
+    margin-top: 34px !important;
+  }
+}
+
+/* Standard desktop / laptop */
+@media (min-width: 651px) and (max-width: 1399px) {
+  .hero-stage .hero-content,
+  .hero-stage .hero-content[style] {
+    left: 7vw !important;
+    bottom: 17% !important;
+    width: min(680px, 56vw) !important;
+    max-width: 680px !important;
+  }
+
+  .hero-stage .hero-title {
+    font-size: clamp(68px, 8vw, 108px) !important;
+  }
+
+  .hero-stage .hero-description {
+    max-width: 470px !important;
+    margin-top: 30px !important;
+  }
+
+  .hero-stage .hero-button {
+    margin-top: 30px !important;
+  }
+}
+
+/* Tablet / mobile */
+@media (max-width: 650px) {
+  .hero-stage .hero-content,
+  .hero-stage .hero-content[style] {
+    top: auto !important;
+    left: 22px !important;
+    right: 22px !important;
+    bottom: 105px !important;
+
+    width: calc(100% - 44px) !important;
+    max-width: 520px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    transform: none !important;
+    text-align: left !important;
+  }
+
+  .hero-stage .hero-eyebrow {
+    margin-bottom: 16px !important;
+    text-align: left !important;
+  }
+
+  .hero-stage .hero-title {
+    font-size: clamp(42px, 12.5vw, 60px) !important;
+    line-height: .92 !important;
+    letter-spacing: -0.045em !important;
+    text-align: left !important;
+    max-width: 100% !important;
+  }
+
+  .hero-stage .hero-description {
+    max-width: 310px !important;
+    margin: 20px 0 22px !important;
+    font-size: 10px !important;
+    line-height: 1.65 !important;
+    text-align: left !important;
+  }
+
+  .hero-stage .hero-button {
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+  }
+}
+
+/* Small phones */
+@media (max-width: 400px) {
+  .hero-stage .hero-content,
+  .hero-stage .hero-content[style] {
+    left: 18px !important;
+    right: 18px !important;
+    bottom: 92px !important;
+    width: calc(100% - 36px) !important;
+  }
+
+  .hero-stage .hero-title {
+    font-size: clamp(38px, 12.5vw, 50px) !important;
+  }
+
+  .hero-stage .hero-description {
+    max-width: 285px !important;
+    font-size: 9.5px !important;
+  }
+}
+

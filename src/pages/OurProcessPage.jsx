@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./OurProcessPage.css";
 
-const processHeroVideo = "/videos/ceramic-hero.mp4";
+const processHeroVideo = "/videos/process-hero-01.mp4";
 
 const processSteps = [
   {

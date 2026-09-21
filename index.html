@@ -50,117 +50,50 @@
       }
 
 
-      /* =========================================
-         INTRO VIDEO
-      ========================================= */
+      #intro-loader {
+        flex-direction: column;
+        gap: 38px;
+        padding: 24px;
+      }
 
-      #intro-video {
+      #intro-logo {
+        width: min(280px, 62vw);
+        height: auto;
+        filter: brightness(0) invert(1);
+      }
+
+      .loader-progress {
+        width: min(260px, 68vw);
+      }
+
+      .loader-progress-track {
         width: 100%;
+        height: 1px;
+        overflow: hidden;
+        background: rgba(244, 241, 235, 0.25);
+      }
+
+      #loader-progress-bar {
+        width: 0%;
         height: 100%;
-
-        display: block;
-
-        object-fit: cover;
-        object-position: center;
-
-        background: #171614;
-      }
-
-
-      /* =========================================
-         SKIP BUTTON
-      ========================================= */
-
-      #skip-intro {
-        position: absolute;
-
-        right: 35px;
-        bottom: 35px;
-
-        z-index: 10;
-
-        display: flex;
-        align-items: center;
-        gap: 18px;
-
-        min-height: 45px;
-
-        padding: 0 18px;
-
-        border: 1px solid
-          rgba(255, 255, 255, 0.45);
-
-        background: rgba(20, 19, 17, 0.25);
-
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-
-        color: #f4f1eb;
-
-        font-family: Arial, sans-serif;
-
-        font-size: 8px;
-
-        letter-spacing: 2.5px;
-
-        cursor: pointer;
-
-        transition:
-          background 0.35s ease,
-          border-color 0.35s ease,
-          transform 0.35s ease;
-      }
-
-      #skip-intro span {
-        font-size: 14px;
-
-        transition:
-          transform 0.35s ease;
-      }
-
-      #skip-intro:hover {
         background: #f4f1eb;
-
-        border-color: #f4f1eb;
-
-        color: #171614;
-
-        transform:
-          translateY(-3px);
+        transition: width 0.12s linear;
       }
 
-      #skip-intro:hover span {
-        transform:
-          translateX(4px);
+      .loader-progress-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 12px;
+        color: #f4f1eb;
+        font-family: Arial, sans-serif;
+        font-size: 8px;
+        letter-spacing: 2px;
       }
-
-
-      /* =========================================
-         MOBILE
-      ========================================= */
 
       @media (max-width: 650px) {
-
-        #intro-video {
-          object-fit: cover;
-          object-position: center;
+        #intro-loader {
+          gap: 28px;
         }
-
-        #skip-intro {
-          right: 20px;
-          bottom: 20px;
-
-          min-height: 42px;
-
-          padding: 0 15px;
-
-          font-size: 7px;
-
-          letter-spacing: 2px;
-
-          gap: 12px;
-        }
-
       }
     </style>
   </head>
@@ -169,40 +102,27 @@
   <body>
 
     <!-- =========================================
-         VED EXIM INTRO VIDEO
+         VED EXIM LOADER
     ========================================== -->
 
     <div id="intro-loader">
 
-      <video
-        id="intro-video"
-        autoplay
-        muted
-        playsinline
-        preload="auto"
-      >
+      <img
+        id="intro-logo"
+        src="/images/logo/vedexim.svg"
+        alt="Ved Exim"
+      />
 
-        <source
-          src="/videos/logo-intro.mp4"
-          type="video/mp4"
-        />
+      <div class="loader-progress">
+        <div class="loader-progress-track">
+          <div id="loader-progress-bar"></div>
+        </div>
 
-        Your browser does not support
-        the intro video.
-
-      </video>
-
-
-      <!-- SKIP -->
-
-      <button
-        id="skip-intro"
-        type="button"
-      >
-        SKIP INTRO
-
-        <span>↗</span>
-      </button>
+        <div class="loader-progress-meta">
+          <span>LOADING</span>
+          <span id="loader-progress-value">0%</span>
+        </div>
+      </div>
 
     </div>
 
@@ -221,7 +141,7 @@
 
 
     <!-- =========================================
-         INTRO CONTROL
+         LOADER CONTROL
     ========================================== -->
 
     <script>
@@ -233,26 +153,27 @@
             "intro-loader"
           );
 
-        const video =
+        const progressBar =
           document.getElementById(
-            "intro-video"
+            "loader-progress-bar"
           );
 
-        const skipButton =
+        const progressValue =
           document.getElementById(
-            "skip-intro"
+            "loader-progress-value"
           );
 
 
         if (
           !loader ||
-          !video ||
-          !skipButton
+          !progressBar ||
+          !progressValue
         ) {
           return;
         }
 
 
+        let progress = 0;
         let removed = false;
 
 
@@ -267,15 +188,6 @@
           }
 
           removed = true;
-
-
-          /*
-           * Stop video immediately
-           */
-
-          video.pause();
-
-          video.currentTime = 0;
 
 
           /*
@@ -302,57 +214,20 @@
         }
 
 
-        /* =========================================
-           VIDEO FINISHED
-        ========================================= */
+        const updateProgress = function () {
+          progress = Math.min(progress + 2, 100);
+          progressBar.style.width = progress + "%";
+          progressValue.textContent = progress + "%";
 
-        video.addEventListener(
-          "ended",
-          removeIntro
-        );
+          if (progress === 100) {
+            setTimeout(removeIntro, 250);
+            return;
+          }
 
+          setTimeout(updateProgress, 24);
+        };
 
-        /* =========================================
-           SKIP BUTTON
-        ========================================= */
-
-        skipButton.addEventListener(
-          "click",
-          removeIntro
-        );
-
-
-        /* =========================================
-           VIDEO ERROR
-        ========================================= */
-
-        video.addEventListener(
-          "error",
-          removeIntro
-        );
-
-
-        /* =========================================
-           AUTOPLAY
-        ========================================= */
-
-        const playPromise =
-          video.play();
-
-        if (
-          playPromise !== undefined
-        ) {
-
-          playPromise.catch(
-            function () {
-              /*
-               * Video remains visible.
-               * User can use SKIP INTRO.
-               */
-            }
-          );
-
-        }
+        updateProgress();
 
       })();
 
