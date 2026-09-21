@@ -3079,3 +3079,283 @@
     right: 22px !important;
   }
 }
+
+
+/* =========================================================
+   VED EXIM — REFRESH LOADER
+   ========================================================= */
+body.process-loader-active { overflow: hidden !important; }
+
+.process-page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: grid;
+  place-items: center;
+  background: #171614;
+  color: #f4f1eb;
+  opacity: 1;
+  animation: processLoaderExit .55s cubic-bezier(.76,0,.24,1) 1.12s forwards;
+}
+.process-loader-inner {
+  width: min(320px, 72vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+.process-loader-logo-wrap {
+  min-height: 82px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  opacity: 0;
+  transform: translateY(16px) scale(.94);
+  animation: processLoaderLogoIn .65s cubic-bezier(.22,1,.36,1) .05s forwards;
+}
+.process-loader-logo {
+  width: min(190px, 52vw);
+  max-height: 92px;
+  object-fit: contain;
+  display: block;
+}
+.process-loader-logo-fallback {
+  position: absolute;
+  white-space: nowrap;
+  font-family: Georgia, serif;
+  font-size: clamp(24px, 5vw, 40px);
+  letter-spacing: .12em;
+}
+.process-loader-progress {
+  width: 100%;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(244,241,235,.22);
+}
+.process-loader-progress-bar {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: #f4f1eb;
+  animation: processLoaderProgress 1.05s cubic-bezier(.22,1,.36,1) .08s forwards;
+}
+.process-loader-percent {
+  font: 600 10px/1 Arial, sans-serif;
+  letter-spacing: .25em;
+  opacity: 0;
+  animation: processLoaderTextIn .35s ease .4s forwards;
+}
+@keyframes processLoaderLogoIn { to { opacity:1; transform:translateY(0) scale(1); } }
+@keyframes processLoaderProgress { to { width:100%; } }
+@keyframes processLoaderTextIn { to { opacity:1; } }
+@keyframes processLoaderExit {
+  0% { opacity:1; visibility:visible; }
+  100% { opacity:0; visibility:hidden; pointer-events:none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .process-page-loader, .process-loader-logo-wrap, .process-loader-progress-bar, .process-loader-percent { animation-duration:.01ms !important; animation-delay:0ms !important; }
+}
+
+
+/* =========================================================
+   FINAL ROUTE FIX — NO BLACK SCREEN WHEN ENTERING PROCESS
+   Loader runs on browser refresh only. SPA navigation goes
+   directly to the visible hero and starts at scrollY = 0.
+========================================================= */
+
+.process-page {
+  position: relative !important;
+  width: 100% !important;
+  overflow-x: hidden !important;
+  overflow-y: visible !important;
+  background: #f3f0ea !important;
+}
+
+/* Keep the cinematic transition, but never let an old rule hide
+   the actual Process hero viewport. */
+.process-hero {
+  position: relative !important;
+  height: 200vh !important;
+  min-height: 200vh !important;
+  max-height: none !important;
+  padding: 0 !important;
+  display: block !important;
+  overflow: visible !important;
+  background: #171614 !important;
+  isolation: isolate !important;
+}
+
+.process-hero-viewport {
+  position: sticky !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  overflow: hidden !important;
+  display: block !important;
+  background: #171614 !important;
+  isolation: isolate !important;
+  z-index: 1 !important;
+}
+
+.process-hero-media,
+.process-hero-video-wrap {
+  position: absolute !important;
+  inset: -3% !important;
+  width: 106% !important;
+  height: 106% !important;
+  display: block !important;
+  z-index: 0 !important;
+  overflow: hidden !important;
+  background: #171614 !important;
+}
+
+.process-hero-video,
+.process-hero-fallback {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+.process-hero-fallback {
+  z-index: 1 !important;
+  opacity: 1 !important;
+}
+
+.process-hero-video {
+  z-index: 2 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: transparent !important;
+}
+
+.process-hero-video.video-failed {
+  opacity: 0 !important;
+}
+
+.process-hero-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 3 !important;
+  pointer-events: none !important;
+}
+
+.process-hero-content {
+  position: absolute !important;
+  left: 8vw !important;
+  right: 8vw !important;
+  bottom: 17% !important;
+  width: min(1000px, calc(100% - 16vw)) !important;
+  margin: 0 !important;
+  z-index: 5 !important;
+  visibility: visible !important;
+}
+
+.process-hero-meta {
+  position: absolute !important;
+  left: 8vw !important;
+  right: 8vw !important;
+  bottom: 42px !important;
+  z-index: 6 !important;
+  margin: 0 !important;
+  visibility: visible !important;
+}
+
+/* Curtain starts completely off-canvas and is moved by the JSX
+   scroll handler. It must not become an opaque black layer. */
+.process-horizontal-curtain {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 20 !important;
+  display: flex !important;
+  align-items: center !important;
+  background: #f3f0ea !important;
+  color: #171614 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+  transform: translate3d(100%,0,0) !important;
+  will-change: transform !important;
+}
+
+.process-hero-progress {
+  position: absolute !important;
+  left: 8vw !important;
+  right: 8vw !important;
+  bottom: 0 !important;
+  z-index: 7 !important;
+}
+
+/* The following content must start immediately after the hero
+   track; no black spacer/gap is allowed. */
+.process-hero + .process-intro {
+  position: relative !important;
+  margin-top: 0 !important;
+  background: #f3f0ea !important;
+  z-index: 40 !important;
+}
+
+.process-intro,
+.process-technology,
+.process-quality,
+.process-cta,
+.process-stages {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.process-stages,
+.process-stage-grid,
+.process-stage-card {
+  visibility: visible !important;
+}
+
+.process-scroll-section,
+.process-scroll-section.is-visible,
+.process-scroll-card,
+.process-scroll-card.is-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  clip-path: none !important;
+}
+
+/* Refresh loader should never affect route navigation because the
+   JSX only mounts it for a real browser reload. */
+.process-page-loader {
+  z-index: 999999 !important;
+}
+
+@media (max-width: 650px) {
+  .process-hero {
+    height: 180svh !important;
+    min-height: 180svh !important;
+  }
+
+  .process-hero-viewport {
+    height: 100svh !important;
+    min-height: 100svh !important;
+  }
+
+  .process-hero-content {
+    left: 22px !important;
+    right: 22px !important;
+    width: calc(100% - 44px) !important;
+    bottom: 18% !important;
+  }
+
+  .process-hero-meta {
+    left: 22px !important;
+    right: 22px !important;
+    bottom: 28px !important;
+  }
+
+  .process-hero-progress {
+    left: 22px !important;
+    right: 22px !important;
+  }
+}

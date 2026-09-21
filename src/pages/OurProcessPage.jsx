@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./OurProcessPage.css";
 
@@ -118,50 +118,79 @@ const processSteps = [
 ];
 
 function OurProcessPage() {
-  const pageRef = useRef(null);
-  const heroRef = useRef(null);
-  const [heroProgress, setHeroProgress] = useState(0);
-  const [activeStep, setActiveStep] = useState(0);
+  const [isPageLoading, setIsPageLoading] = useState(() => {
+    try {
+      const navigation = performance.getEntriesByType("navigation")[0];
+      return navigation?.type === "reload";
+    } catch {
+      return false;
+    }
+  });
 
   useEffect(() => {
-    const page = pageRef.current;
-    if (!page) return;
+    // Always enter the Process page at the top so a previous page's
+    // scroll position cannot expose a blank/black transition frame.
+    window.scrollTo(0, 0);
 
-    const revealTargets = page.querySelectorAll("[data-reveal]");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
-    );
+    if (!isPageLoading) return undefined;
 
-    revealTargets.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const updateHero = () => {
-      const hero = heroRef.current;
-      if (!hero) return;
-
-      const rect = hero.getBoundingClientRect();
-      const distance = Math.max(window.innerHeight * 0.82, 520);
-      const travelled = Math.max(0, -rect.top);
-      setHeroProgress(Math.min(travelled / distance, 1));
-    };
-
-    updateHero();
-    window.addEventListener("scroll", updateHero, { passive: true });
-    window.addEventListener("resize", updateHero);
+    document.body.classList.add("process-loader-active");
+    const timer = window.setTimeout(() => {
+      setIsPageLoading(false);
+      document.body.classList.remove("process-loader-active");
+    }, 1050);
 
     return () => {
-      window.removeEventListener("scroll", updateHero);
-      window.removeEventListener("resize", updateHero);
+      window.clearTimeout(timer);
+      document.body.classList.remove("process-loader-active");
+    };
+  }, [isPageLoading]);
+  const [activeStep, setActiveStep] = useState(0);
+  const [heroProgress, setHeroProgress] = useState(0);
+
+  useEffect(() => {
+    let raf = 0;
+
+    const updateHeroProgress = () => {
+      const hero = document.querySelector(".process-hero");
+      if (!hero) return;
+
+      const range = Math.max(1, hero.offsetHeight - window.innerHeight);
+      const progress = Math.min(1, Math.max(0, window.scrollY / range));
+      setHeroProgress(progress);
+
+      const viewport = hero.querySelector(".process-hero-viewport");
+      const curtain = hero.querySelector(".process-horizontal-curtain");
+      const media = hero.querySelector(".process-hero-media");
+      const content = hero.querySelector(".process-hero-content");
+      const overlay = hero.querySelector(".process-hero-overlay");
+
+      if (viewport) viewport.style.setProperty("--hero-progress", progress.toFixed(4));
+      if (curtain) curtain.style.transform = `translate3d(${progress * 100}%, 0, 0)`;
+      if (media) media.style.transform = `scale(${1 + progress * 0.06})`;
+      if (content) {
+        content.style.transform = `translate3d(0, ${progress * -8}%, 0)`;
+        content.style.opacity = String(1 - progress * 0.2);
+      }
+      if (overlay) overlay.style.opacity = String(1 - progress * 0.12);
+    };
+
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        updateHeroProgress();
+      });
+    };
+
+    updateHeroProgress();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
     };
   }, []);
 
@@ -185,25 +214,35 @@ function OurProcessPage() {
     return () => observer.disconnect();
   }, []);
 
-  const eased = 1 - Math.pow(1 - heroProgress, 3);
-  const heroImageY = eased * -5;
-  const heroImageScale = 1 + eased * 0.035;
-  const heroContentY = eased * -42;
-  const heroContentOpacity = 1 - eased * 1.15;
+
 
   return (
-    <main className="process-page" ref={pageRef}>
+    <main className="process-page">
+      {isPageLoading && (
+        <div className="process-page-loader" aria-label="Loading VED EXIM">
+          <div className="process-loader-inner">
+            <div className="process-loader-logo-wrap">
+              <img
+                src="/logo.png"
+                alt="VED EXIM"
+                className="process-loader-logo"
+                onError={(event) => { event.currentTarget.style.display = "none"; }}
+              />
+              <span className="process-loader-logo-fallback">VED EXIM</span>
+            </div>
+            <div className="process-loader-progress">
+              <span className="process-loader-progress-bar" />
+            </div>
+            <div className="process-loader-percent">100%</div>
+          </div>
+        </div>
+      )}
       {/* =================================================
           CINEMATIC HERO
       ================================================= */}
-      <section className="process-hero" ref={heroRef}>
+      <section className="process-hero">
         <div className="process-hero-viewport">
-        <div
-          className="process-hero-media process-hero-video-wrap"
-          style={{
-            transform: `translate3d(0, ${heroImageY}px, 0) scale(${heroImageScale})`,
-          }}
-        >
+          <div className="process-hero-media process-hero-video-wrap">
           <video
             className="process-hero-video"
             autoPlay
@@ -213,6 +252,7 @@ function OurProcessPage() {
             preload="auto"
             poster={processSteps[0].image}
             aria-label="Ceramic tile manufacturing process"
+            onError={(event) => event.currentTarget.classList.add("video-failed")}
           >
             <source src={processHeroVideo} type="video/mp4" />
           </video>
@@ -228,10 +268,6 @@ function OurProcessPage() {
 
         <div
           className="process-hero-content"
-          style={{
-            transform: `translate3d(0, ${heroContentY}px, 0)`,
-            opacity: heroContentOpacity,
-          }}
         >
           <div className="process-hero-kicker">
             <span>OUR PROCESS</span>
@@ -263,28 +299,21 @@ function OurProcessPage() {
           <span>CRAFT · TECHNOLOGY · PRECISION</span>
         </div>
 
-        <div className="process-hero-progress">
-          <span style={{ transform: `scaleX(${Math.max(0.08, heroProgress)})` }} />
-        </div>
+          <div className="process-hero-progress">
+            <span style={{ transform: `scaleX(${Math.max(0.08, heroProgress)})` }} />
+          </div>
 
-        {/* SAME HORIZONTAL TRANSITION AS HOME */}
-        <div
-          className="process-horizontal-curtain"
-          aria-hidden="true"
-          style={{
-            transform: `translate3d(${Math.max(0, 100 - eased * 100)}%, 0, 0)`,
-          }}
-        >
-          <div className="process-horizontal-curtain-line" />
-          <span>VED EXIM · OUR PROCESS</span>
-        </div>
+          <div className="process-horizontal-curtain" aria-hidden="true">
+            <div className="process-horizontal-curtain-line" />
+            <span>VED EXIM · CERAMIC PROCESS</span>
+          </div>
         </div>
       </section>
 
       {/* =================================================
           INTRO
       ================================================= */}
-      <section className="process-intro process-scroll-section" data-reveal>
+      <section className="process-intro">
         <div className="process-section-label">
           <span>01</span>
           <p>THE MORBI ECOSYSTEM</p>
@@ -334,8 +363,8 @@ function OurProcessPage() {
       {/* =================================================
           PROCESS STAGES
       ================================================= */}
-      <section className="process-stages process-scroll-section" id="process-stages">
-        <div className="process-stages-heading" data-reveal>
+      <section className="process-stages" id="process-stages">
+        <div className="process-stages-heading">
           <div>
             <div className="process-section-label process-section-label-dark">
               <span>02</span>
@@ -361,9 +390,9 @@ function OurProcessPage() {
         <div className="process-stage-grid">
           {processSteps.map((step, index) => (
             <article
-              className={`process-stage-card process-scroll-card ${index === activeStep ? "is-active" : ""}`}
+              className={`process-stage-card ${index === activeStep ? "is-active" : ""}`}
               data-step={index}
-              data-reveal
+             
               key={step.number}
             >
               <div className="process-stage-card-top">
@@ -402,7 +431,7 @@ function OurProcessPage() {
       {/* =================================================
           TECHNOLOGY
       ================================================= */}
-      <section className="process-technology process-scroll-section" data-reveal>
+      <section className="process-technology">
         <div className="process-technology-image">
           <img
             src="https://www.marbizsurfaces.com/public/images/blog/17691677500_Tile-manufacturing-plant-in-Morbi.jpg"
@@ -438,7 +467,7 @@ function OurProcessPage() {
       {/* =================================================
           QUALITY
       ================================================= */}
-      <section className="process-quality process-scroll-section" data-reveal>
+      <section className="process-quality">
         <div className="process-section-label">
           <span>04</span>
           <p>QUALITY AT EVERY STAGE</p>
@@ -471,7 +500,7 @@ function OurProcessPage() {
       {/* =================================================
           CTA
       ================================================= */}
-      <section className="process-cta process-scroll-section" data-reveal>
+      <section className="process-cta">
         <p className="process-eyebrow">VED EXIM</p>
         <h2>
           Know the process.
