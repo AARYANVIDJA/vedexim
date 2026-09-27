@@ -4,18 +4,12 @@
 
 .collections-section {
   position: relative;
-
   width: 100%;
-
   padding: 150px 8vw 55px;
-
   background: #171614;
-
   color: #f4f1eb;
-
   overflow: hidden;
 }
-
 
 /* =========================================
    HEADER
@@ -23,65 +17,45 @@
 
 .collections-header {
   display: grid;
-
   grid-template-columns: 1fr 0.65fr;
-
   gap: 80px;
-
   align-items: end;
-
   margin-bottom: 85px;
 }
 
 .collections-label {
   margin-bottom: 25px;
-
   font-family: Arial, sans-serif;
-
   font-size: 8px;
-
   letter-spacing: 4px;
-
   color: #77716a;
 }
 
 .collections-title {
   margin: 0;
-
   font-family:
     Georgia,
     "Times New Roman",
     serif;
-
   font-size: clamp(55px, 6vw, 90px);
-
   font-weight: 400;
-
   line-height: 0.88;
-
   letter-spacing: -4px;
 }
 
 .collections-title em {
   color: #aaa39a;
-
   font-style: italic;
 }
 
 .collections-intro {
   max-width: 390px;
-
   margin: 0 0 4px;
-
   font-family: Arial, sans-serif;
-
   font-size: 11px;
-
   line-height: 1.85;
-
   color: #8f8981;
 }
-
 
 /* =========================================
    GRID
@@ -89,12 +63,9 @@
 
 .collections-grid {
   display: grid;
-
   grid-template-columns: repeat(2, 1fr);
-
   gap: 18px;
 }
-
 
 /* =========================================
    CARD
@@ -102,21 +73,13 @@
 
 .collection-card {
   position: relative;
-
   display: block;
-
   min-height: 560px;
-
   overflow: hidden;
-
   color: white;
-
   text-decoration: none;
-
   opacity: 0;
-
   transform: translateY(50px);
-
   transition:
     opacity 0.9s ease,
     transform 1s cubic-bezier(0.16, 1, 0.3, 1);
@@ -124,7 +87,6 @@
 
 .collections-visible .collection-card {
   opacity: 1;
-
   transform: translateY(0);
 }
 
@@ -144,27 +106,21 @@
   transition-delay: 0.35s;
 }
 
-
 /* =========================================
    IMAGE
 ========================================= */
 
 .collection-image {
   position: absolute;
-
   inset: 0;
-
   overflow: hidden;
-
   background: #252320;
 }
 
 .collection-image img {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
-
   transition:
     transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
     filter 0.8s ease;
@@ -172,10 +128,8 @@
 
 .collection-card:hover .collection-image img {
   transform: scale(1.07);
-
   filter: brightness(0.85);
 }
-
 
 /* =========================================
    OVERLAY
@@ -183,9 +137,7 @@
 
 .collection-overlay {
   position: absolute;
-
   inset: 0;
-
   background:
     linear-gradient(
       180deg,
@@ -195,30 +147,21 @@
     );
 }
 
-
 /* =========================================
    CONTENT
 ========================================= */
 
 .collection-content {
   position: relative;
-
   z-index: 2;
-
   width: 100%;
   height: 100%;
-
   min-height: 560px;
-
   padding: 28px;
-
   display: flex;
-
   flex-direction: column;
-
   justify-content: space-between;
 }
-
 
 /* =========================================
    TOP
@@ -226,37 +169,26 @@
 
 .collection-top {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
 }
 
 .collection-number {
   font-family: Arial, sans-serif;
-
   font-size: 8px;
-
   letter-spacing: 2px;
-
   color: rgba(255, 255, 255, 0.65);
 }
 
 .collection-arrow {
   width: 42px;
   height: 42px;
-
   display: flex;
-
   align-items: center;
   justify-content: center;
-
   border: 1px solid rgba(255, 255, 255, 0.45);
-
   border-radius: 50%;
-
   font-size: 17px;
-
   transition:
     background 0.35s ease,
     color 0.35s ease,
@@ -265,12 +197,9 @@
 
 .collection-card:hover .collection-arrow {
   background: #f4f1eb;
-
   color: #171614;
-
   transform: rotate(45deg);
 }
-
 
 /* =========================================
    BOTTOM
@@ -278,35 +207,126 @@
 
 .collection-bottom h3 {
   margin: 0 0 10px;
-
   font-family:
     Georgia,
     "Times New Roman",
     serif;
-
   font-size: clamp(35px, 4vw, 58px);
-
   font-weight: 400;
-
   line-height: 1;
-
   letter-spacing: -2px;
 }
 
 .collection-bottom p {
   max-width: 330px;
-
   margin: 0;
-
   font-family: Arial, sans-serif;
-
   font-size: 10px;
-
   line-height: 1.7;
-
   color: rgba(255, 255, 255, 0.72);
 }
 
+/* =========================================
+   INQUIRY BUTTONS
+========================================= */
+
+.collection-inquiry-actions {
+  position: relative;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  width: 100%;
+  margin-top: 22px;
+}
+
+.collection-inquiry-btn {
+  position: relative;
+  z-index: 11;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  min-height: 42px;
+  padding: 0 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+
+  text-decoration: none;
+  white-space: nowrap;
+
+  cursor: pointer;
+  pointer-events: auto;
+
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.collection-inquiry-btn span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;
+  height: 18px;
+
+  font-size: 12px;
+  line-height: 1;
+}
+
+.collection-whatsapp {
+  background: #20b858;
+  border-color: #20b858;
+  color: #ffffff;
+}
+
+.collection-whatsapp:hover {
+  background: #159447;
+  border-color: #159447;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(32, 184, 88, 0.25);
+}
+
+.collection-email {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #ffffff;
+}
+
+.collection-email:hover {
+  background: #f4f1eb;
+  border-color: #f4f1eb;
+  color: #171614;
+  transform: translateY(-3px);
+}
+
+.collection-card-inquiry .collection-content {
+  position: relative;
+  z-index: 5;
+}
+
+.collection-card-inquiry .collection-inquiry-actions,
+.collection-card-inquiry .collection-inquiry-btn {
+  pointer-events: auto;
+}
 
 /* =========================================
    FOOTER
@@ -314,40 +334,28 @@
 
 .collections-footer {
   margin-top: 45px;
-
   padding-top: 20px;
-
   border-top: 1px solid #35322f;
-
   display: flex;
-
   justify-content: space-between;
-
   font-family: Arial, sans-serif;
-
   font-size: 7px;
-
   letter-spacing: 3px;
-
   color: #706a63;
 }
-
 
 /* =========================================
    TABLET
 ========================================= */
 
 @media (max-width: 900px) {
-
   .collections-section {
     padding: 110px 6vw 45px;
   }
 
   .collections-header {
     grid-template-columns: 1fr;
-
     gap: 35px;
-
     margin-bottom: 60px;
   }
 
@@ -363,48 +371,45 @@
     min-height: 500px;
   }
 
+  .collection-inquiry-btn {
+    min-height: 40px;
+    padding: 0 15px;
+    font-size: 8px;
+  }
 }
-
 
 /* =========================================
    MOBILE
 ========================================= */
 
 @media (max-width: 650px) {
-
   .collections-section {
     padding: 90px 22px 30px;
   }
 
   .collections-header {
     margin-bottom: 45px;
-
     gap: 25px;
   }
 
   .collections-label {
     margin-bottom: 18px;
-
     font-size: 7px;
-
     letter-spacing: 3px;
   }
 
   .collections-title {
     font-size: 50px;
-
     letter-spacing: -2.5px;
   }
 
   .collections-intro {
     font-size: 10px;
-
     line-height: 1.75;
   }
 
   .collections-grid {
     grid-template-columns: 1fr;
-
     gap: 12px;
   }
 
@@ -414,38 +419,44 @@
 
   .collection-content {
     min-height: 430px;
-
     padding: 22px;
   }
 
   .collection-bottom h3 {
     font-size: 38px;
-
     letter-spacing: -1.5px;
   }
 
   .collection-bottom p {
     max-width: 290px;
-
     font-size: 9px;
   }
 
   .collection-arrow {
     width: 38px;
     height: 38px;
-
     font-size: 15px;
+  }
+
+  .collection-inquiry-actions {
+    width: 100%;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .collection-inquiry-btn {
+    flex: 1 1 100%;
+    width: 100%;
+    min-height: 40px;
+    padding: 0 14px;
+    font-size: 8px;
   }
 
   .collections-footer {
     margin-top: 30px;
-
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     gap: 15px;
-
     line-height: 1.5;
   }
 
@@ -456,5 +467,4 @@
   .collections-footer span:last-child {
     grid-column: 1 / -1;
   }
-
 }
