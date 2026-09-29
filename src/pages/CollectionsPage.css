@@ -3227,423 +3227,274 @@
 
 }
 
+/* =========================================
+   THREE-CARD COLLECTION LAYOUT
+========================================= */
 
-/* =====================================================
-   COLLECTIONS HERO — NORMAL / BALANCED POSITION
-   Final override
-===================================================== */
-
-.collections-page .collections-page-hero .collections-page-hero-content {
-  position: absolute !important;
-
-  left: 8vw !important;
-  right: auto !important;
-
-  top: 50% !important;
-  bottom: auto !important;
-
-  width: min(760px, 80vw) !important;
-  max-width: 760px !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  transform: translateY(-50%) !important;
-
-  z-index: 5 !important;
+@media (min-width: 1101px) {
+  .collections-page-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
-.collections-page .collections-page-hero .collections-page-label {
-  margin: 0 0 24px !important;
-
-  font-family: Arial, Helvetica, sans-serif !important;
-  font-size: 9px !important;
-  font-weight: 500 !important;
-  line-height: 1.2 !important;
-
-  letter-spacing: 4px !important;
-  text-transform: uppercase !important;
-
-  color: rgba(244, 241, 235, 0.80) !important;
+.collection-page-card-organic {
+  cursor: pointer;
 }
 
-.collections-page .collections-page-hero h1 {
-  margin: 0 !important;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif !important;
-
-  font-size: clamp(56px, 6.2vw, 90px) !important;
-  font-weight: 400 !important;
-
-  line-height: 0.92 !important;
-  letter-spacing: -3.5px !important;
-
-  color: #f4f1eb !important;
+.collection-page-card-organic .collection-image-button {
+  cursor: pointer;
 }
 
-.collections-page .collections-page-hero h1 em {
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif !important;
-
-  font-style: italic !important;
-  font-weight: 400 !important;
-
-  letter-spacing: -3.5px !important;
+.organic-powder-collection-image img {
+  object-fit: cover;
 }
 
-.collections-page .collections-page-hero .collections-page-description {
-  max-width: 470px !important;
-
-  margin: 30px 0 0 !important;
-
-  font-family: Arial, Helvetica, sans-serif !important;
-  font-size: 12px !important;
-  line-height: 1.75 !important;
-
-  color: rgba(244, 241, 235, 0.76) !important;
+.organic-powder-open-button {
+  pointer-events: auto;
+  cursor: pointer;
 }
 
-.collections-page .collections-page-hero .collections-hero-button {
-  margin-top: 28px !important;
+/* =========================================
+   ORGANIC POWDER MODAL
+========================================= */
+
+.organic-powder-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background: rgba(18, 16, 14, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  animation: organicPowderModalFade 0.28s ease both;
 }
 
-/* Keep metadata at the bottom */
-.collections-page .collections-page-hero .collections-page-hero-meta {
-  position: absolute !important;
-
-  left: 8vw !important;
-  right: 8vw !important;
-
-  top: auto !important;
-  bottom: 28px !important;
-
-  z-index: 6 !important;
+.organic-powder-modal-box {
+  position: relative;
+  width: min(1180px, 100%);
+  max-height: min(88vh, 900px);
+  overflow-y: auto;
+  padding: 48px;
+  background: #f4f0e9;
+  color: #24211e;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
+  animation: organicPowderModalUp 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Tablet */
+.organic-powder-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(36, 33, 30, 0.2);
+  border-radius: 50%;
+  background: transparent;
+  color: #24211e;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.organic-powder-modal-close:hover {
+  background: #24211e;
+  color: #f4f0e9;
+  transform: rotate(90deg);
+}
+
+.organic-powder-modal-heading {
+  max-width: 700px;
+  margin-bottom: 34px;
+}
+
+.organic-powder-modal-heading > span {
+  display: block;
+  margin-bottom: 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #8a8177;
+}
+
+.organic-powder-modal-heading h2 {
+  margin: 0 0 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(38px, 5vw, 68px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -2px;
+}
+
+.organic-powder-modal-heading p {
+  max-width: 560px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #716b63;
+}
+
+.organic-powder-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.organic-powder-modal-card {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(36, 33, 30, 0.1);
+}
+
+.organic-powder-modal-image {
+  aspect-ratio: 1 / 0.82;
+  overflow: hidden;
+  background: #ece8e0;
+}
+
+.organic-powder-modal-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.organic-powder-modal-card:hover .organic-powder-modal-image img {
+  transform: scale(1.045);
+}
+
+.organic-powder-modal-card-content {
+  padding: 22px;
+}
+
+.organic-powder-modal-card-content > span {
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #8a8177;
+}
+
+.organic-powder-modal-card-content h3 {
+  margin: 9px 0 9px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.organic-powder-modal-card-content p {
+  min-height: 66px;
+  margin: 0 0 18px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.65;
+  color: #716b63;
+}
+
+.organic-powder-inquiry-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.organic-powder-inquiry-actions a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 8px;
+  text-align: center;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.organic-powder-inquiry-actions a:hover {
+  transform: translateY(-2px);
+  opacity: 0.88;
+}
+
+.organic-powder-whatsapp-button {
+  background: #24211e;
+  color: #fff;
+}
+
+.organic-powder-email-button {
+  border: 1px solid rgba(36, 33, 30, 0.28);
+  background: transparent;
+  color: #24211e;
+}
+
+@keyframes organicPowderModalFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes organicPowderModalUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (max-width: 900px) {
-  .collections-page .collections-page-hero .collections-page-hero-content {
-    left: 6vw !important;
-    width: 84vw !important;
+  .organic-powder-modal-box {
+    padding: 40px 24px 24px;
   }
 
-  .collections-page .collections-page-hero h1 {
-    font-size: clamp(52px, 8vw, 76px) !important;
-  }
-}
-
-/* Mobile */
-@media (max-width: 650px) {
-  .collections-page .collections-page-hero .collections-page-hero-content {
-    left: 20px !important;
-    right: 20px !important;
-
-    top: 50% !important;
-    bottom: auto !important;
-
-    width: auto !important;
-    max-width: 340px !important;
-
-    transform: translateY(-50%) !important;
+  .organic-powder-modal-grid {
+    grid-template-columns: 1fr;
   }
 
-  .collections-page .collections-page-hero .collections-page-label {
-    margin-bottom: 16px !important;
-
-    font-size: 7px !important;
-    letter-spacing: 2.5px !important;
-  }
-
-  .collections-page .collections-page-hero h1 {
-    font-size: clamp(45px, 12.5vw, 62px) !important;
-
-    line-height: 0.93 !important;
-    letter-spacing: -2px !important;
-  }
-
-  .collections-page .collections-page-hero h1 em {
-    letter-spacing: -2px !important;
-  }
-
-  .collections-page .collections-page-hero .collections-page-description {
-    max-width: 320px !important;
-
-    margin-top: 20px !important;
-
-    font-size: 10px !important;
-    line-height: 1.7 !important;
-  }
-
-  .collections-page .collections-page-hero .collections-hero-button {
-    margin-top: 22px !important;
-  }
-
-  .collections-page .collections-page-hero .collections-page-hero-meta {
-    left: 20px !important;
-    right: 20px !important;
-    bottom: 18px !important;
+  .organic-powder-modal-card-content p {
+    min-height: auto;
   }
 }
 
-/* Final mobile hero typography pass. This comes last to override legacy rules. */
-@media (max-width: 650px) {
-  .collections-page .collections-page-hero h1 {
-    font-size: clamp(46px, 13vw, 60px) !important;
-    line-height: 0.94 !important;
-    letter-spacing: -0.045em !important;
-    text-wrap: balance;
+@media (max-width: 600px) {
+  .organic-powder-modal {
+    padding: 12px;
   }
 
-  .collections-page .collections-page-hero .collections-page-description {
-    font-size: clamp(10px, 2.9vw, 11px) !important;
-    line-height: 1.75 !important;
-  }
-}
-
-/* Final mobile hero typography — overrides the legacy hero declarations above. */
-@media (max-width: 650px) {
-  .collections-page .collections-page-hero-content {
-    max-width: 100% !important;
+  .organic-powder-modal-box {
+    max-height: 94vh;
+    padding: 38px 16px 18px;
   }
 
-  .collections-page .collections-page-hero h1 {
-    max-width: 100% !important;
-    font-size: clamp(44px, 12.8vw, 58px) !important;
-    line-height: 0.93 !important;
-    letter-spacing: -0.045em !important;
-    text-wrap: balance;
+  .organic-powder-modal-close {
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    font-size: 23px;
   }
 
-  .collections-page .collections-page-label {
-    font-size: 7px !important;
-    letter-spacing: 2.4px !important;
+  .organic-powder-modal-heading {
+    margin-bottom: 24px;
+    padding-right: 30px;
   }
 
-  .collections-page .collections-page-description {
-    max-width: 31rem !important;
-    font-size: 10px !important;
-    line-height: 1.78 !important;
-  }
-}
-
-/* =========================================================
-   VED EXIM — FINAL MOBILE HERO FONT FIX
-   Keep hero typography stable on all mobile widths.
-========================================================= */
-
-@media (max-width: 650px) {
-  .collections-page-hero .collections-page-hero-content {
-    position: absolute !important;
-    left: 24px !important;
-    right: 24px !important;
-    bottom: 105px !important;
-    width: auto !important;
-    max-width: 330px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    transform: none !important;
+  .organic-powder-modal-heading h2 {
+    font-size: 42px;
   }
 
-  .collections-page-hero h1 {
-    width: 100% !important;
-    max-width: 330px !important;
-    margin: 0 !important;
-    font-family: Georgia, "Times New Roman", serif !important;
-    font-size: clamp(42px, 12.5vw, 60px) !important;
-    font-weight: 400 !important;
-    line-height: 0.92 !important;
-    letter-spacing: -1.8px !important;
-    white-space: normal !important;
-    text-align: left !important;
-  }
-
-  .collections-page-hero h1 em {
-    font-family: Georgia, "Times New Roman", serif !important;
-    font-style: italic !important;
-    font-weight: 400 !important;
-  }
-
-  .collections-page-hero .collections-page-label {
-    margin: 0 0 15px !important;
-    font-family: Arial, Helvetica, sans-serif !important;
-    font-size: 7px !important;
-    line-height: 1.35 !important;
-    letter-spacing: 2.6px !important;
-  }
-
-  .collections-page-hero .collections-page-description {
-    max-width: 300px !important;
-    margin: 19px 0 0 !important;
-    font-family: Arial, Helvetica, sans-serif !important;
-    font-size: 9.5px !important;
-    line-height: 1.65 !important;
-    text-align: left !important;
-  }
-
-  .collections-page-hero .collections-hero-button {
-    min-height: 44px !important;
-    margin-top: 17px !important;
-    padding: 0 16px !important;
-    gap: 17px !important;
-    font-size: 7.5px !important;
-    letter-spacing: 1.5px !important;
-  }
-}
-
-@media (max-width: 380px) {
-  .collections-page-hero .collections-page-hero-content {
-    left: 20px !important;
-    right: 20px !important;
-    bottom: 94px !important;
-    max-width: 300px !important;
-  }
-
-  .collections-page-hero h1 {
-    max-width: 300px !important;
-    font-size: 42px !important;
-    line-height: 0.93 !important;
-    letter-spacing: -1.6px !important;
-  }
-
-  .collections-page-hero .collections-page-description {
-    max-width: 275px !important;
-    font-size: 9px !important;
-  }
-}
-
-
-/* =========================================================
-   VED EXIM — ABSOLUTE FINAL MOBILE HERO POSITION
-   TRUE LEFT-BOTTOM CORNER
-   MUST REMAIN THE LAST CSS BLOCK
-========================================================= */
-
-@media screen and (max-width: 650px) {
-
-  .collections-page .collections-page-hero {
-    position: relative !important;
-    height: 100svh !important;
-    min-height: 0 !important;
-    max-height: 100svh !important;
-    padding: 0 !important;
-    display: block !important;
-    overflow: hidden !important;
-  }
-
-  .collections-page .collections-page-hero .collections-page-hero-content {
-    position: absolute !important;
-
-    top: auto !important;
-    bottom: 112px !important;
-
-    left: 20px !important;
-    right: auto !important;
-
-    width: calc(100% - 40px) !important;
-    max-width: 330px !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    transform: none !important;
-    z-index: 50 !important;
-
-    text-align: left !important;
-  }
-
-  .collections-page .collections-page-hero .collections-page-label {
-    display: block !important;
-    margin: 0 0 14px !important;
-    text-align: left !important;
-    font-size: 7px !important;
-    line-height: 1.3 !important;
-    letter-spacing: 2.5px !important;
-  }
-
-  .collections-page .collections-page-hero h1 {
-    display: block !important;
-    width: 100% !important;
-    max-width: 330px !important;
-
-    margin: 0 !important;
-
-    font-family: Georgia, "Times New Roman", serif !important;
-    font-size: clamp(40px, 12.5vw, 57px) !important;
-    font-weight: 400 !important;
-    line-height: 0.93 !important;
-    letter-spacing: -1.7px !important;
-
-    text-align: left !important;
-    white-space: normal !important;
-  }
-
-  .collections-page .collections-page-hero h1 em {
-    display: inline !important;
-    font-family: Georgia, "Times New Roman", serif !important;
-    font-style: italic !important;
-    font-weight: 400 !important;
-  }
-
-  .collections-page .collections-page-hero .collections-page-description {
-    display: block !important;
-    width: 100% !important;
-    max-width: 290px !important;
-
-    margin: 17px 0 0 !important;
-
-    font-size: 9px !important;
-    line-height: 1.62 !important;
-    text-align: left !important;
-  }
-
-  .collections-page .collections-page-hero .collections-hero-button {
-    display: inline-flex !important;
-    margin-top: 16px !important;
-    min-height: 43px !important;
-    padding: 0 15px !important;
-    font-size: 7.5px !important;
-    letter-spacing: 1.5px !important;
-  }
-
-  .collections-page .collections-page-hero .collections-page-hero-meta {
-    position: absolute !important;
-    left: 20px !important;
-    right: 20px !important;
-    top: auto !important;
-    bottom: 18px !important;
-    z-index: 51 !important;
-  }
-}
-
-/* Extra-small phones */
-@media screen and (max-width: 380px) {
-
-  .collections-page .collections-page-hero .collections-page-hero-content {
-    left: 18px !important;
-    bottom: 100px !important;
-    width: calc(100% - 36px) !important;
-    max-width: 285px !important;
-  }
-
-  .collections-page .collections-page-hero h1 {
-    max-width: 285px !important;
-    font-size: 40px !important;
-    line-height: 0.94 !important;
-    letter-spacing: -1.5px !important;
-  }
-
-  .collections-page .collections-page-hero .collections-page-description {
-    max-width: 265px !important;
-    font-size: 8.5px !important;
-  }
-
-  .collections-page .collections-page-hero .collections-page-hero-meta {
-    left: 18px !important;
-    right: 18px !important;
+  .organic-powder-inquiry-actions {
+    grid-template-columns: 1fr;
   }
 }

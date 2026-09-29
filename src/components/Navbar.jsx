@@ -338,20 +338,6 @@ function Navbar() {
 
 
               <Link
-                to="/products?category=PARKING%20TILES"
-                className="menu-collection-item"
-                onClick={closeMenu}
-              >
-                <span className="menu-item-number">
-                </span>
-
-                <span className="menu-item-name">
-                  Parking Tiles
-                </span>
-              </Link>
-
-
-              <Link
                 to="/products?category=SANITARY%20WARE"
                 className="menu-collection-item"
                 onClick={closeMenu}

@@ -1,39 +1,49 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { createPortal } from "react-dom";
 import "./CollectionsPage.css";
+
+const WHATSAPP_NUMBER = "919909026328";
+const EMAIL_ADDRESS = "vedeximmorbi1@gmail.com";
+
+const organicPowders = [
+  {
+    name: "BLACK GARLIC POWDER",
+    image: "/images/black-garlic-powder.png",
+    description: "Premium organic black garlic powder for food and culinary applications.",
+  },
+  {
+    name: "GARLIC POWDER",
+    image: "/images/garlic-powder.png",
+    description: "Fine organic garlic powder with a clean, versatile profile for everyday use.",
+  },
+  {
+    name: "ONION POWDER",
+    image: "/images/onion-powder.png",
+    description: "Premium organic onion powder prepared for convenient culinary use.",
+  },
+];
 
 const collections = [
   {
     number: "01",
-    name: "Marble",
-    subtitle: "TIMELESS ELEGANCE",
+    name: "12 X 12",
+    subtitle: "WATERPROOF CERAMIC TILES",
     description:
-      "Elegant marble-inspired surfaces with natural movement, refined veining and a sophisticated architectural character.",
-    image: "/images/products/marble/marble-01.png",
+      "Waterproof 12 X 12 ceramic tiles designed for durable, easy-clean surfaces and moisture-prone spaces.",
+    image:
+      "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1200&q=85",
+    size: "12 X 12",
   },
   {
     number: "02",
-    name: "Stone",
-    subtitle: "NATURAL CHARACTER",
+    name: "16 X 16",
+    subtitle: "WATERPROOF CERAMIC TILES",
     description:
-      "Earth-inspired ceramic surfaces created to bring warmth, texture and a sense of permanence to contemporary interiors.",
-    image: "/images/products/stone/stone-01.png",
-  },
-  {
-    number: "03",
-    name: "Terrazzo",
-    subtitle: "CONTEMPORARY RHYTHM",
-    description:
-      "Distinctive terrazzo-inspired patterns that add visual rhythm, texture and personality to modern spaces.",
-    image: "/images/products/terrazzo/terrazzo-01.png",
-  },
-  {
-    number: "04",
-    name: "Concrete",
-    subtitle: "ARCHITECTURAL MINIMALISM",
-    description:
-      "Quiet concrete-inspired surfaces designed for understated, modern and architectural environments.",
-    image: "/images/products/concrete/concrete-01.png",
+      "Waterproof 16 X 16 tiles with a durable surface, practical maintenance and a clean architectural look.",
+    image:
+      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=85",
+    size: "16 X 16",
   },
 ];
 
@@ -43,6 +53,26 @@ function CollectionsPage() {
   const rafRef = useRef(null);
 
   const [progress, setProgress] = useState(0);
+  const [isOrganicOpen, setIsOrganicOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isOrganicOpen) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsOrganicOpen(false);
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOrganicOpen]);
 
   /* =========================================
      PAGE ENTRANCE
@@ -314,7 +344,7 @@ function CollectionsPage() {
           </h1>
 
           <p className="collections-page-description">
-            A curated world of ceramic surfaces
+            A curated range of waterproof ceramic tiles
             created to bring material depth,
             refined detail and timeless character
             to contemporary spaces.
@@ -347,7 +377,7 @@ function CollectionsPage() {
         >
 
           <span>
-            04 COLLECTIONS
+            02 COLLECTIONS
           </span>
 
           <span>
@@ -429,9 +459,7 @@ function CollectionsPage() {
               >
 
                 <Link
-                  to={`/products?series=${encodeURIComponent(
-                    collection.name.toUpperCase()
-                  )}`}
+                  to={`/products?size=${encodeURIComponent(collection.size)}`}
                   className="collection-image-button"
                   aria-label={
                     `View ${collection.name} products`
@@ -445,7 +473,7 @@ function CollectionsPage() {
                     <img
                       src={collection.image}
                       alt={
-                        `${collection.name} ceramic collection`
+                        `${collection.name} waterproof ceramic tiles`
                       }
                       loading={
                         index === 0
@@ -510,9 +538,7 @@ function CollectionsPage() {
 
 
                     <Link
-                      to={`/products?series=${encodeURIComponent(
-                        collection.name.toUpperCase()
-                      )}`}
+                      to={`/products?size=${encodeURIComponent(collection.size)}`}
                       className=
                         "collection-page-arrow"
                       aria-label={
@@ -531,9 +557,130 @@ function CollectionsPage() {
             )
           )}
 
+          <article
+            className="collection-page-card collection-page-card-organic collection-page-card-3"
+          >
+            <button
+              type="button"
+              className="collection-image-button"
+              onClick={() => setIsOrganicOpen(true)}
+              aria-label="Open organic powder collection"
+            >
+              <div className="collection-page-image organic-powder-collection-image">
+                <img
+                  src="/images/garlic-powder.png"
+                  alt="Organic powders collection"
+                  loading="lazy"
+                />
+                <div className="collection-page-image-overlay" />
+              </div>
+            </button>
+
+            <div className="collection-page-content">
+              <div className="collection-page-top">
+                <span className="collection-page-number">03</span>
+                <span className="collection-page-subtitle">ORGANIC POWDERS</span>
+              </div>
+
+              <div className="collection-page-bottom">
+                <div>
+                  <h2>Organic Powder</h2>
+                  <p>Explore our three premium organic powder products and inquire directly with our team.</p>
+                </div>
+
+                <button
+                  type="button"
+                  className="collection-page-arrow organic-powder-open-button"
+                  onClick={() => setIsOrganicOpen(true)}
+                  aria-label="Open organic powder products"
+                >
+                  ↗
+                </button>
+              </div>
+            </div>
+          </article>
+
         </div>
 
       </section>
+
+      {isOrganicOpen && typeof document !== "undefined" &&
+        createPortal(
+          <div
+            className="organic-powder-modal"
+            role="presentation"
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) {
+                setIsOrganicOpen(false);
+              }
+            }}
+          >
+            <div
+              className="organic-powder-modal-box"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="organic-powder-modal-title"
+            >
+              <button
+                type="button"
+                className="organic-powder-modal-close"
+                onClick={() => setIsOrganicOpen(false)}
+                aria-label="Close organic powder collection"
+              >
+                ×
+              </button>
+
+              <div className="organic-powder-modal-heading">
+                <span>VED EXIM · ORGANIC RANGE</span>
+                <h2 id="organic-powder-modal-title">Organic Powder</h2>
+                <p>Choose a powder to inquire about availability, pricing and specifications.</p>
+              </div>
+
+              <div className="organic-powder-modal-grid">
+                {organicPowders.map((powder) => {
+                  const message = `Hello, I would like to inquire about ${powder.name}.`;
+                  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+                  const emailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL_ADDRESS)}&su=${encodeURIComponent(`Inquiry - ${powder.name}`)}&body=${encodeURIComponent(`${message}\n\nThank you.`)}`;
+
+                  return (
+                    <article className="organic-powder-modal-card" key={powder.name}>
+                      <div className="organic-powder-modal-image">
+                        <img src={powder.image} alt={powder.name} loading="lazy" />
+                      </div>
+
+                      <div className="organic-powder-modal-card-content">
+                        <span>ORGANIC POWDER</span>
+                        <h3>{powder.name}</h3>
+                        <p>{powder.description}</p>
+
+                        <div className="organic-powder-inquiry-actions">
+                          <a
+                            href={whatsappUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="organic-powder-whatsapp-button"
+                          >
+                            WhatsApp Inquiry
+                          </a>
+                          <a
+                            href={emailUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="organic-powder-email-button"
+                          >
+                            Email Inquiry
+                          </a>
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
+
 
 
       {/* =========================================

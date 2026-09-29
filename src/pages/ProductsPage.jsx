@@ -18,7 +18,7 @@ const products = [
   {
     id: "01",
     category: "FLOOR TILES",
-    size: "600 X 1200 MM",
+    size: "12 X 12",
     series: "MARBLE",
     surface: "POLISHED",
     name: "Mistero Nero",
@@ -28,7 +28,7 @@ const products = [
   {
     id: "02",
     category: "FLOOR TILES",
-    size: "600 X 1200 MM",
+    size: "12 X 12",
     series: "MARBLE",
     surface: "POLISHED",
     name: "Marvel Verde",
@@ -38,7 +38,7 @@ const products = [
   {
     id: "03",
     category: "FLOOR TILES",
-    size: "600 X 1200 MM",
+    size: "12 X 12",
     series: "MARBLE",
     surface: "HIGH GLOSS",
     name: "Marcacol Hg",
@@ -48,7 +48,7 @@ const products = [
   {
     id: "04",
     category: "FLOOR TILES",
-    size: "600 X 1200 MM",
+    size: "12 X 12",
     series: "STONE",
     surface: "MATT",
     name: "Urban Stone",
@@ -58,7 +58,7 @@ const products = [
   {
     id: "05",
     category: "WALL TILES",
-    size: "300 X 600 MM",
+    size: "12 X 12",
     series: "STONE",
     surface: "MATT",
     name: "Limestone Grey",
@@ -68,7 +68,7 @@ const products = [
   {
     id: "13",
     category: "WALL TILES",
-    size: "300 X 450 MM",
+    size: "12 X 12",
     series: "STONE",
     surface: "MATT",
     name: "Limestone Classic",
@@ -78,17 +78,17 @@ const products = [
   {
     id: "14",
     category: "WALL TILES",
-    size: "300 X 300 MM",
+    size: "12 X 12",
     series: "STONE",
     surface: "MATT",
     name: "Stone Square",
-    image: "/images/products/stone/stone-01.png",
+    image: "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1200&q=85",
   },
 
   {
     id: "06",
     category: "GVT",
-    size: "600 X 1200 MM",
+    size: "12 X 12",
     series: "CONCRETE",
     surface: "MATT",
     name: "Architect Grey",
@@ -98,7 +98,7 @@ const products = [
   {
     id: "07",
     category: "FLOOR TILES",
-    size: "800 X 1600 MM",
+    size: "16 X 16",
     series: "MARBLE",
     surface: "HIGH GLOSS",
     name: "Calacatta White",
@@ -108,7 +108,7 @@ const products = [
   {
     id: "08",
     category: "FLOOR TILES",
-    size: "600 X 1200 MM",
+    size: "12 X 12",
     series: "TERRAZZO",
     surface: "MATT",
     name: "Terrazzo Classic",
@@ -118,7 +118,7 @@ const products = [
   {
     id: "09",
     category: "WALL TILES",
-    size: "300 X 600 MM",
+    size: "12 X 12",
     series: "MARBLE",
     surface: "GLOSSY",
     name: "Bianco Vein",
@@ -128,7 +128,7 @@ const products = [
   {
     id: "10",
     category: "FLOOR TILES",
-    size: "600 X 1200 MM",
+    size: "12 X 12",
     series: "STONE",
     surface: "MATT",
     name: "Graphite Slate",
@@ -138,7 +138,7 @@ const products = [
   {
     id: "11",
     category: "FLOOR TILES",
-    size: "800 X 1600 MM",
+    size: "16 X 16",
     series: "MARBLE",
     surface: "HIGH GLOSS",
     name: "Arabescato",
@@ -148,7 +148,7 @@ const products = [
   {
     id: "12",
     category: "FLOOR TILES",
-    size: "600 X 1200 MM",
+    size: "12 X 12",
     series: "CONCRETE",
     surface: "MATT",
     name: "Raw Concrete",
@@ -180,27 +180,15 @@ const categories = [
   "ALL",
   "WALL TILES",
   "FLOOR TILES",
-  "PARKING TILES",
   "SANITARYWARE",
 ];
 
 const sizes = [
   "ALL",
-  "300 X 300 MM",
-  "300 X 450 MM",
-  "300 X 600 MM",
-  "600 X 600 MM",
-  "600 X 1200 MM",
-  "800 X 1600 MM",
+  "12 X 12",
+  "16 X 16",
 ];
 
-const surfaces = [
-  "ALL",
-  "POLISHED",
-  "HIGH GLOSS",
-  "GLOSSY",
-  "MATT",
-];
 
 
 /* =====================================================
@@ -209,7 +197,6 @@ const surfaces = [
 
 function ProductsPage() {
   const pageRef = useRef(null);
-  const curtainRafRef = useRef(null);
   const [searchParams] = useSearchParams();
 
   const categoryFromUrl =
@@ -218,8 +205,6 @@ function ProductsPage() {
   const sizeFromUrl =
     searchParams.get("size")?.toUpperCase() || "ALL";
 
-  const seriesFromUrl =
-    searchParams.get("series")?.toUpperCase() || "ALL";
 
   const [category, setCategory] =
     useState(categoryFromUrl);
@@ -227,52 +212,12 @@ function ProductsPage() {
   const [size, setSize] =
     useState(sizeFromUrl);
 
-  const [series, setSeries] =
-    useState(seriesFromUrl);
 
-  const [surface, setSurface] =
-    useState("ALL");
 
   const [currentPage, setCurrentPage] = useState(1);
 
   const [selectedProduct, setSelectedProduct] =
     useState(null);
-  const [revealProgress, setRevealProgress] = useState(0);
-
-  useEffect(() => {
-    const updateReveal = () => {
-      if (curtainRafRef.current) {
-        cancelAnimationFrame(curtainRafRef.current);
-      }
-
-      curtainRafRef.current = requestAnimationFrame(() => {
-        curtainRafRef.current = null;
-
-        const page = pageRef.current;
-        if (!page) return;
-
-        const distance = Math.max(window.innerHeight * 0.9, 500);
-        const travelled = Math.max(0, -page.getBoundingClientRect().top);
-
-        setRevealProgress(Math.min(Math.max(travelled / distance, 0), 1));
-      });
-    };
-
-    window.addEventListener("scroll", updateReveal, { passive: true });
-    window.addEventListener("resize", updateReveal);
-    updateReveal();
-
-    return () => {
-      window.removeEventListener("scroll", updateReveal);
-      window.removeEventListener("resize", updateReveal);
-
-      if (curtainRafRef.current) {
-        cancelAnimationFrame(curtainRafRef.current);
-        curtainRafRef.current = null;
-      }
-    };
-  }, []);
-
 
   /* ===================================================
      SETTINGS
@@ -282,26 +227,7 @@ function ProductsPage() {
 
 
   /* ===================================================
-     SERIES OPTIONS
-  =================================================== */
-
-  const seriesOptions = useMemo(() => {
-    return [
-      "ALL",
-
-      ...Array.from(
-        new Set(
-          products.map(
-            (product) => product.series
-          )
-        )
-      ),
-    ];
-  }, []);
-
-
-  /* ===================================================
-     SYNC CATEGORY + SIZE + SERIES WITH URL
+     SYNC CATEGORY + SIZE WITH URL
   =================================================== */
 
   useEffect(() => {
@@ -311,27 +237,10 @@ function ProductsPage() {
     const requestedSize =
       searchParams.get("size")?.toUpperCase() || "ALL";
 
-    const requestedSeries =
-      searchParams.get("series")?.toUpperCase() || "ALL";
-
     setCategory(requestedCategory);
     setSize(requestedSize);
-
-    if (
-      requestedSeries === "ALL" ||
-      seriesOptions.includes(requestedSeries)
-    ) {
-      setSeries(requestedSeries);
-    } else {
-      setSeries("ALL");
-    }
-
     setCurrentPage(1);
-  }, [
-    searchParams,
-    seriesOptions,
-  ]);
-
+  }, [searchParams]);
 
   /* ===================================================
      FILTER PRODUCTS
@@ -347,28 +256,9 @@ function ProductsPage() {
         size === "ALL" ||
         product.size === size;
 
-      const seriesMatch =
-        series === "ALL" ||
-        product.series === series;
-
-      const surfaceMatch =
-        surface === "ALL" ||
-        product.surface === surface;
-
-      return (
-        categoryMatch &&
-        sizeMatch &&
-        seriesMatch &&
-        surfaceMatch
-      );
+      return categoryMatch && sizeMatch;
     });
-  }, [
-    category,
-    size,
-    series,
-    surface,
-  ]);
-
+  }, [category, size]);
 
   /* ===================================================
      PAGINATION
@@ -398,13 +288,7 @@ function ProductsPage() {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [
-    category,
-    size,
-    series,
-    surface,
-  ]);
-
+  }, [category, size]);
 
   /* ===================================================
      KEEP PAGE VALID
@@ -499,8 +383,6 @@ function ProductsPage() {
   const clearFilters = () => {
     setCategory("ALL");
     setSize("ALL");
-    setSeries("ALL");
-    setSurface("ALL");
     setCurrentPage(1);
 
     window.history.replaceState(
@@ -515,59 +397,8 @@ function ProductsPage() {
      RENDER
   =================================================== */
 
-  const eased =
-    revealProgress * revealProgress * (3 - 2 * revealProgress);
-  const curtainX = 100 - eased * 100;
-
   return (
     <main className="products-catalogue-page" ref={pageRef}>
-
-      <section className="products-video-hero">
-        <video
-          className="products-video-background"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-label="Ceramic tile product collection"
-        >
-          <source src="/videos/ceramic-hero-02.mp4" type="video/mp4" />
-        </video>
-
-        <div className="products-video-overlay" />
-
-        <div className="products-video-content">
-          <p className="products-video-label">VED EXIM · PRODUCTS</p>
-          <h1>
-            Crafted for
-            <br />
-            <em>every surface.</em>
-          </h1>
-          <p className="products-video-description">
-            Explore ceramic surfaces made for enduring performance,
-            refined detail and contemporary spaces.
-          </p>
-          <a href="#product-catalogue" className="products-video-button">
-            EXPLORE PRODUCTS <span>↓</span>
-          </a>
-        </div>
-
-        <div className="products-video-bottom">
-          <span>CERAMICS · SURFACES · SANITARYWARE</span>
-          <span>SCROLL TO EXPLORE ↓</span>
-        </div>
-
-        <div
-          className="products-horizontal-curtain"
-          aria-hidden="true"
-          style={{ transform: `translate3d(${curtainX}%, 0, 0)` }}
-        >
-          <div className="products-horizontal-curtain-line" />
-          <span>VED EXIM · PRODUCTS</span>
-        </div>
-      </section>
-
 
       {/* =================================================
           PRODUCT CATALOGUE
@@ -652,71 +483,6 @@ function ProductsPage() {
           </div>
 
 
-          {/* SERIES */}
-
-          <div className="catalogue-filter">
-
-            <label>
-              Search By Series
-            </label>
-
-            <select
-              value={series}
-              onChange={(event) =>
-                setSeries(
-                  event.target.value
-                )
-              }
-            >
-              {seriesOptions.map(
-                (item) => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
-                    {item === "ALL"
-                      ? "All Series"
-                      : item}
-                  </option>
-                )
-              )}
-            </select>
-
-          </div>
-
-
-          {/* SURFACE */}
-
-          <div className="catalogue-filter">
-
-            <label>
-              Search By Surface
-            </label>
-
-            <select
-              value={surface}
-              onChange={(event) =>
-                setSurface(
-                  event.target.value
-                )
-              }
-            >
-              {surfaces.map(
-                (item) => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
-                    {item === "ALL"
-                      ? "Select Any One"
-                      : item}
-                  </option>
-                )
-              )}
-            </select>
-
-          </div>
-
         </div>
 
 
@@ -777,7 +543,7 @@ function ProductsPage() {
                   >
 
                     <div
-                      className="catalogue-product-image"
+                      className="catalogue-product-image catalogue-white-tile-image"
                     >
 
                       <img
@@ -820,21 +586,6 @@ function ProductsPage() {
                       {product.name}
                     </h2>
 
-
-                    <div
-                      className="catalogue-product-meta"
-                    >
-
-                      <span>
-                        {product.series}
-                      </span>
-
-
-                      <span>
-                        {product.surface}
-                      </span>
-
-                    </div>
 
                     <div className="catalogue-product-actions">
                       <a
@@ -1049,13 +800,6 @@ function ProductsPage() {
               <strong>
                 {selectedProduct.name}
               </strong>
-
-
-              <span>
-                {selectedProduct.series}
-                {" · "}
-                {selectedProduct.surface}
-              </span>
 
               <a
                 href={getProductWhatsAppUrl(selectedProduct)}
