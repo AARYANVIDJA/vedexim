@@ -321,7 +321,7 @@ function ContactPage() {
         <div className="contact-detail-grid">
 
           <a
-            href="mailto:vedeximmorbi@gmail.com"
+            href="mailto:vedeximmorbi1@gmail.com"
             className="contact-detail-card contact-reveal"
           >
 
@@ -334,7 +334,7 @@ function ContactPage() {
             </span>
 
             <strong>
-              vedeximmorbi@gmail.com
+              vedeximmorbi1@gmail.com
             </strong>
 
             <span className="contact-detail-arrow">

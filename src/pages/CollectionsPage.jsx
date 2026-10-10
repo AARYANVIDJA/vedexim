@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { createPortal } from "react-dom";
 import "./CollectionsPage.css";
 
-const WHATSAPP_NUMBER = "919909026328";
+const WHATSAPP_NUMBER = "916353992729";
 const EMAIL_ADDRESS = "vedeximmorbi1@gmail.com";
 
 const organicPowders = [

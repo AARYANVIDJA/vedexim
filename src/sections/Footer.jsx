@@ -105,14 +105,14 @@ function Footer() {
 
           <div className="footer-support">
             <a href="tel:+919909026328">
-              <strong>T :</strong> +91 99090 26328
+              <strong>T :</strong> +91 9163539 92729
             </a>
 
-            <a href="mailto:vedeximmorbi@gmail.com">
-              <strong>E :</strong> vedeximmorbi@gmail.com
+            <a href="mailto:vedeximmorbi1@gmail.com">
+              <strong>E :</strong> vedeximmorbi1@gmail.com
             </a>
 
-            <a href="https://wa.me/919909026328" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/916353992729" target="_blank" rel="noopener noreferrer">
               <strong>W :</strong> WhatsApp Us
             </a>
           </div>
