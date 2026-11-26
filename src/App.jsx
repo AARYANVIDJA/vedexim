@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import WhatsAppButton from "./components/WhatsAppButton";
+import Instagram from "./components/Instagram";
 import Footer from "./sections/Footer";
 import SmoothScroll from "./components/SmoothScroll";
 
@@ -55,6 +56,8 @@ function App() {
       </Routes>
 
       <WhatsAppButton />
+
+      <Instagram />
 
       <Footer />
 

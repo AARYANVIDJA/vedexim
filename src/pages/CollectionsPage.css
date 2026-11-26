@@ -32,18 +32,8 @@
 
 .collections-page-hero-content {
   max-width: 900px;
-
-  opacity: 0;
-  transform: translateY(45px);
-
-  transition:
-    opacity 1s ease,
-    transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.collections-page-visible .collections-page-hero-content {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 .collections-page-label {
@@ -390,9 +380,13 @@
 
   border-radius: 50%;
 
+  padding: 0;
+  background: transparent;
   color: #fff;
 
   font-size: 18px;
+  cursor: pointer;
+  appearance: none;
 
   transition:
     background 0.35s ease,
@@ -1199,12 +1193,6 @@
   transform: none;
 
   color: #f4f1eb;
-}
-
-.collections-page-visible .collections-page-hero-content {
-  opacity: 1;
-
-  transform: translateY(0);
 }
 
 
@@ -3277,6 +3265,8 @@
   width: min(1180px, 100%);
   max-height: min(88vh, 900px);
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding: 48px;
   background: #f4f0e9;
   color: #24211e;

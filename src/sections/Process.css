@@ -4,115 +4,69 @@
 
 .process-section {
   position: relative;
-
   width: 100%;
-
-  padding: 150px 8vw 55px;
-
+  padding: 40px 8vw 55px;
+  margin-top: 0;
   background: #f3f0ea;
-
   color: #171614;
-
   overflow: hidden;
 }
 
-
-/* =========================================
-   HEADER
-========================================= */
-
+/* HEADER */
 .process-header {
   display: grid;
-
   grid-template-columns: 1fr 0.65fr;
-
   gap: 80px;
-
   align-items: end;
-
-  margin-bottom: 100px;
+  margin: 0 0 65px;
 }
 
 .process-label {
   margin-bottom: 25px;
-
   font-family: Arial, sans-serif;
-
   font-size: 8px;
-
   letter-spacing: 4px;
-
   color: #817a71;
 }
 
 .process-title {
   margin: 0;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
+  font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(55px, 6vw, 90px);
-
   font-weight: 400;
-
   line-height: 0.88;
-
   letter-spacing: -4px;
 }
 
 .process-title em {
   color: #777067;
-
   font-style: italic;
 }
 
 .process-intro {
   max-width: 400px;
-
   margin: 0 0 4px;
-
   font-family: Arial, sans-serif;
-
   font-size: 11px;
-
   line-height: 1.9;
-
   color: #716b63;
 }
 
-
-/* =========================================
-   PROCESS GRID
-========================================= */
-
+/* PROCESS GRID */
 .process-grid {
   display: grid;
-
   grid-template-columns: repeat(4, 1fr);
-
   border-top: 1px solid #cec8bf;
-
   border-bottom: 1px solid #cec8bf;
 }
 
-
-/* =========================================
-   PROCESS ITEM
-========================================= */
-
+/* PROCESS ITEM */
 .process-item {
   min-height: 330px;
-
   padding: 28px 28px 35px 0;
-
   border-right: 1px solid #cec8bf;
-
   opacity: 0;
-
   transform: translateY(40px);
-
   transition:
     opacity 0.8s ease,
     transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
@@ -126,79 +80,52 @@
   border-right: none;
 }
 
-
-/* =========================================
-   REVEAL
-========================================= */
-
+/* REVEAL */
 .process-visible .process-item:nth-child(1) {
   opacity: 1;
-
   transform: translateY(0);
-
   transition-delay: 0.05s;
 }
 
 .process-visible .process-item:nth-child(2) {
   opacity: 1;
-
   transform: translateY(0);
-
   transition-delay: 0.15s;
 }
 
 .process-visible .process-item:nth-child(3) {
   opacity: 1;
-
   transform: translateY(0);
-
   transition-delay: 0.25s;
 }
 
 .process-visible .process-item:nth-child(4) {
   opacity: 1;
-
   transform: translateY(0);
-
   transition-delay: 0.35s;
 }
 
-
-/* =========================================
-   TOP
-========================================= */
-
+/* TOP */
 .process-item-top {
   display: flex;
-
   align-items: center;
-
   gap: 15px;
-
   margin-bottom: 85px;
 }
 
 .process-number {
   flex-shrink: 0;
-
   font-family: Arial, sans-serif;
-
   font-size: 8px;
-
   letter-spacing: 2px;
-
   color: #817a71;
 }
 
 .process-line {
   width: 100%;
-
   height: 1px;
-
   background: #cec8bf;
-
   transform-origin: left;
-
   transition:
     transform 0.5s ease,
     background 0.5s ease;
@@ -206,31 +133,17 @@
 
 .process-item:hover .process-line {
   background: #171614;
-
   transform: scaleX(0.65);
 }
 
-
-/* =========================================
-   TITLE
-========================================= */
-
+/* TITLE */
 .process-item h3 {
   margin: 0 0 18px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
+  font-family: Georgia, "Times New Roman", serif;
   font-size: 38px;
-
   font-weight: 400;
-
   line-height: 1;
-
   letter-spacing: -1.5px;
-
   transition:
     transform 0.4s ease,
     color 0.4s ease;
@@ -238,49 +151,28 @@
 
 .process-item:hover h3 {
   transform: translateX(7px);
-
   color: #716b63;
 }
 
-
-/* =========================================
-   DESCRIPTION
-========================================= */
-
+/* DESCRIPTION */
 .process-item p {
   max-width: 230px;
-
   margin: 0;
-
   font-family: Arial, sans-serif;
-
   font-size: 13px;
-
   line-height: 1.8;
-
   color: #817a71;
 }
 
-
-/* =========================================
-   BOTTOM
-========================================= */
-
+/* BOTTOM */
 .process-bottom {
   margin-top: 75px;
-
   display: grid;
-
   grid-template-columns: 1fr 1fr 1fr;
-
   align-items: center;
-
   font-family: Arial, sans-serif;
-
   font-size: 7px;
-
   letter-spacing: 3px;
-
   color: #817a71;
 }
 
@@ -292,23 +184,16 @@
   text-align: right;
 }
 
-
-/* =========================================
-   TABLET
-========================================= */
-
+/* TABLET */
 @media (max-width: 900px) {
-
   .process-section {
-    padding: 110px 6vw 45px;
+    padding: 35px 6vw 45px;
   }
 
   .process-header {
     grid-template-columns: 1fr;
-
     gap: 35px;
-
-    margin-bottom: 65px;
+    margin-bottom: 55px;
   }
 
   .process-intro {
@@ -331,51 +216,37 @@
   .process-item:nth-child(4) {
     border-top: 1px solid #cec8bf;
   }
-
 }
 
-
-/* =========================================
-   MOBILE
-========================================= */
-
+/* MOBILE */
 @media (max-width: 650px) {
-
   .process-section {
-    padding: 90px 22px 30px;
+    padding: 35px 22px 30px;
   }
 
   .process-header {
-    margin-bottom: 50px;
-
+    margin-bottom: 40px;
     gap: 25px;
   }
 
   .process-label {
     margin-bottom: 18px;
-
     font-size: 7px;
-
     letter-spacing: 3px;
   }
 
   .process-title {
     font-size: 50px;
-
     line-height: 0.92;
-
     letter-spacing: -2.5px;
   }
 
   .process-intro {
     font-size: 10px;
-
     line-height: 1.75;
   }
 
-
   /* Single column */
-
   .process-grid {
     grid-template-columns: 1fr;
   }
@@ -383,14 +254,8 @@
   .process-item,
   .process-item:not(:first-child) {
     min-height: auto;
-
-    padding:
-      25px
-      0
-      30px;
-
+    padding: 25px 0 30px;
     border-right: none;
-
     border-bottom: 1px solid #cec8bf;
   }
 
@@ -409,28 +274,20 @@
 
   .process-item h3 {
     font-size: 34px;
-
     letter-spacing: -1px;
   }
 
   .process-item p {
     max-width: 310px;
-
     font-size: 9px;
-
     line-height: 1.75;
   }
 
-
   /* Bottom */
-
   .process-bottom {
     margin-top: 50px;
-
     grid-template-columns: 1fr 1fr;
-
     gap: 15px;
-
     line-height: 1.5;
   }
 
@@ -440,8 +297,6 @@
 
   .process-bottom span:last-child {
     grid-column: 1 / -1;
-
     text-align: left;
   }
-
 }

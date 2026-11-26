@@ -24,7 +24,7 @@ const collections = [
   description:
     "A finely milled garlic powder collection presented with a clean and premium character.",
   image:
-    "/images/garlic-powder.png",
+    "/images/garlic-powder-product.png",
   inquiry: true,
 },
 

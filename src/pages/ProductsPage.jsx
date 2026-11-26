@@ -17,145 +17,28 @@ import "./ProductsPage.css";
 const products = [
   {
     id: "01",
-    category: "FLOOR TILES",
+    category: "WALL TILES",
     size: "12 X 12",
-    series: "MARBLE",
-    surface: "POLISHED",
-    name: "Mistero Nero",
-    image: "/images/products/marble/marble-01.png",
+    name: "Plain White",
+    image: "/images/products/12%20x%2012/Palin%20White.png",
   },
-
   {
     id: "02",
-    category: "FLOOR TILES",
+    category: "WALL TILES",
     size: "12 X 12",
-    series: "MARBLE",
-    surface: "POLISHED",
-    name: "Marvel Verde",
-    image: "/images/products/stone/stone-01.png",
+    name: "Stone",
+    image: "/images/products/12%20x%2012/Stone.png",
   },
-
   {
     id: "03",
-    category: "FLOOR TILES",
-    size: "12 X 12",
-    series: "MARBLE",
-    surface: "HIGH GLOSS",
-    name: "Marcacol Hg",
-    image: "/images/products/terrazzo/terrazzo-01.png",
-  },
-
-  {
-    id: "04",
-    category: "FLOOR TILES",
-    size: "12 X 12",
-    series: "STONE",
-    surface: "MATT",
-    name: "Urban Stone",
-    image: "/images/products/concrete/concrete-01.png",
-  },
-
-  {
-    id: "05",
     category: "WALL TILES",
-    size: "12 X 12",
-    series: "STONE",
-    surface: "MATT",
-    name: "Limestone Grey",
-    image: "/images/products/stone/stone-01.png",
-  },
-
-  {
-    id: "13",
-    category: "WALL TILES",
-    size: "12 X 12",
-    series: "STONE",
-    surface: "MATT",
-    name: "Limestone Classic",
-    image: "/images/products/stone/stone-01.png",
-  },
-
-  {
-    id: "14",
-    category: "WALL TILES",
-    size: "12 X 12",
-    series: "STONE",
-    surface: "MATT",
-    name: "Stone Square",
-    image: "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1200&q=85",
-  },
-
-  {
-    id: "06",
-    category: "GVT",
-    size: "12 X 12",
-    series: "CONCRETE",
-    surface: "MATT",
-    name: "Architect Grey",
-    image: "/images/products/concrete/concrete-01.png",
-  },
-
-  {
-    id: "07",
-    category: "FLOOR TILES",
     size: "16 X 16",
-    series: "MARBLE",
-    surface: "HIGH GLOSS",
-    name: "Calacatta White",
-    image: "/images/products/marble/marble-01.png",
-  },
-
-  {
-    id: "08",
-    category: "FLOOR TILES",
-    size: "12 X 12",
-    series: "TERRAZZO",
-    surface: "MATT",
-    name: "Terrazzo Classic",
-    image: "/images/products/terrazzo/terrazzo-01.png",
-  },
-
-  {
-    id: "09",
-    category: "WALL TILES",
-    size: "12 X 12",
-    series: "MARBLE",
-    surface: "GLOSSY",
-    name: "Bianco Vein",
-    image: "/images/products/marble/marble-01.png",
-  },
-
-  {
-    id: "10",
-    category: "FLOOR TILES",
-    size: "12 X 12",
-    series: "STONE",
-    surface: "MATT",
-    name: "Graphite Slate",
-    image: "/images/products/stone/stone-01.png",
-  },
-
-  {
-    id: "11",
-    category: "FLOOR TILES",
-    size: "16 X 16",
-    series: "MARBLE",
-    surface: "HIGH GLOSS",
-    name: "Arabescato",
-    image: "/images/products/marble/marble-01.png",
-  },
-
-  {
-    id: "12",
-    category: "FLOOR TILES",
-    size: "12 X 12",
-    series: "CONCRETE",
-    surface: "MATT",
-    name: "Raw Concrete",
-    image: "/images/products/concrete/concrete-01.png",
+    name: "Plain White",
+    image: "/images/products/16%20x%2016/Palin%20White.png",
   },
 ];
 
+const PRODUCT_INQUIRY_EMAIL = "vedeximmorbi@gmail.com";
 
 function getProductWhatsAppUrl(product) {
   const phoneNumber = "919909026328";
@@ -170,6 +53,20 @@ function getProductWhatsAppUrl(product) {
 
   const message = `Hello Ved Exim, I would like to inquire about *${product.name}* (${specs}).\n\nPlease share pricing, technical specifications, and catalogue details.`;
   return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+}
+
+function getProductEmailUrl(product) {
+  const subject = `Product Inquiry - ${product.name}`;
+  const details = [
+    `Product: ${product.name}`,
+    product.category && `Category: ${product.category}`,
+    product.size && `Size: ${product.size}`,
+  ]
+    .filter(Boolean)
+    .join("\n");
+  const body = `Hello Ved Exim,\n\nI would like to inquire about this product:\n${details}\n\nPlease share pricing and product details.\n\nThank you.`;
+
+  return `mailto:${PRODUCT_INQUIRY_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 /* =====================================================
@@ -189,8 +86,6 @@ const sizes = [
   "16 X 16",
 ];
 
-
-
 /* =====================================================
    PRODUCTS PAGE
 ===================================================== */
@@ -201,18 +96,14 @@ function ProductsPage() {
 
   const categoryFromUrl =
     searchParams.get("category")?.toUpperCase() || "ALL";
-
   const sizeFromUrl =
     searchParams.get("size")?.toUpperCase() || "ALL";
-
 
   const [category, setCategory] =
     useState(categoryFromUrl);
 
   const [size, setSize] =
     useState(sizeFromUrl);
-
-
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -233,7 +124,6 @@ function ProductsPage() {
   useEffect(() => {
     const requestedCategory =
       searchParams.get("category")?.toUpperCase() || "ALL";
-
     const requestedSize =
       searchParams.get("size")?.toUpperCase() || "ALL";
 
@@ -449,39 +339,20 @@ function ProductsPage() {
 
           </div>
 
-
-          {/* SIZE */}
-
           <div className="catalogue-filter">
-
-            <label>
-              Search By Size
-            </label>
-
+            <label htmlFor="catalogue-size-filter">Search By Size</label>
             <select
+              id="catalogue-size-filter"
               value={size}
-              onChange={(event) =>
-                setSize(
-                  event.target.value
-                )
-              }
+              onChange={(event) => setSize(event.target.value)}
             >
-              {sizes.map(
-                (item) => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
-                    {item === "ALL"
-                      ? "All Sizes"
-                      : item}
-                  </option>
-                )
-              )}
+              {sizes.map((item) => (
+                <option key={item} value={item}>
+                  {item === "ALL" ? "All Sizes" : item}
+                </option>
+              ))}
             </select>
-
           </div>
-
 
         </div>
 
@@ -608,6 +479,23 @@ function ProductsPage() {
                           <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.05 20.15C10.57 20.15 9.12 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.68 12.04 3.68C14.25 3.68 16.31 4.54 17.87 6.1C19.42 7.66 20.28 9.72 20.28 11.92C20.28 16.46 16.59 20.15 12.05 20.15ZM16.57 14.39C16.32 14.27 15.1 13.67 14.87 13.59C14.65 13.5 14.48 13.46 14.32 13.71C14.15 13.95 13.67 14.52 13.52 14.69C13.38 14.85 13.23 14.88 12.98 14.75C12.74 14.63 11.95 14.37 11.01 13.53C10.28 12.88 9.78 12.07 9.64 11.83C9.5 11.58 9.62 11.45 9.75 11.32C9.86 11.21 10 11.04 10.12 10.9C10.24 10.75 10.28 10.65 10.36 10.49C10.44 10.32 10.4 10.18 10.34 10.05C10.28 9.93 9.79 8.73 9.59 8.24C9.39 7.76 9.19 7.82 9.04 7.81H8.57C8.41 7.81 8.15 7.87 7.93 8.11C7.71 8.35 7.09 8.93 7.09 10.11C7.09 11.29 7.95 12.42 8.07 12.59C8.19 12.75 9.77 15.18 12.18 16.23C12.76 16.48 13.2 16.62 13.56 16.74C14.14 16.92 14.67 16.89 15.08 16.83C15.55 16.76 16.52 16.24 16.73 15.67C16.93 15.09 16.93 14.6 16.87 14.5C16.81 14.41 16.65 14.35 16.57 14.39Z"/>
                         </svg>
                         <span>Inquire on WhatsApp</span>
+                      </a>
+                      <a
+                        href={getProductEmailUrl(product)}
+                        className="catalogue-email-btn"
+                        aria-label={`Inquire about ${product.name} by email`}
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          width="15"
+                          height="15"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="1.8" />
+                          <path d="m4 7 8 6 8-6" stroke="currentColor" strokeWidth="1.8" />
+                        </svg>
+                        Email Inquiry
                       </a>
                     </div>
 
@@ -818,6 +706,23 @@ function ProductsPage() {
                   <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.05 20.15C10.57 20.15 9.12 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.68 12.04 3.68C14.25 3.68 16.31 4.54 17.87 6.1C19.42 7.66 20.28 9.72 20.28 11.92C20.28 16.46 16.59 20.15 12.05 20.15ZM16.57 14.39C16.32 14.27 15.1 13.67 14.87 13.59C14.65 13.5 14.48 13.46 14.32 13.71C14.15 13.95 13.67 14.52 13.52 14.69C13.38 14.85 13.23 14.88 12.98 14.75C12.74 14.63 11.95 14.37 11.01 13.53C10.28 12.88 9.78 12.07 9.64 11.83C9.5 11.58 9.62 11.45 9.75 11.32C9.86 11.21 10 11.04 10.12 10.9C10.24 10.75 10.28 10.65 10.36 10.49C10.44 10.32 10.4 10.18 10.34 10.05C10.28 9.93 9.79 8.73 9.59 8.24C9.39 7.76 9.19 7.82 9.04 7.81H8.57C8.41 7.81 8.15 7.87 7.93 8.11C7.71 8.35 7.09 8.93 7.09 10.11C7.09 11.29 7.95 12.42 8.07 12.59C8.19 12.75 9.77 15.18 12.18 16.23C12.76 16.48 13.2 16.62 13.56 16.74C14.14 16.92 14.67 16.89 15.08 16.83C15.55 16.76 16.52 16.24 16.73 15.67C16.93 15.09 16.93 14.6 16.87 14.5C16.81 14.41 16.65 14.35 16.57 14.39Z"/>
                 </svg>
                 <span>Inquire This Product on WhatsApp</span>
+              </a>
+              <a
+                href={getProductEmailUrl(selectedProduct)}
+                className="catalogue-lightbox-email"
+                aria-label={`Inquire about ${selectedProduct.name} by email`}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="17"
+                  height="17"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="1.8" />
+                  <path d="m4 7 8 6 8-6" stroke="currentColor" strokeWidth="1.8" />
+                </svg>
+                Email Inquiry
               </a>
 
             </div>

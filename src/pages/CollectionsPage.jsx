@@ -14,7 +14,7 @@ const organicPowders = [
   },
   {
     name: "GARLIC POWDER",
-    image: "/images/garlic-powder.png",
+    image: "/images/garlic-powder-product.png",
     description: "Fine organic garlic powder with a clean, versatile profile for everyday use.",
   },
   {
@@ -49,10 +49,6 @@ const collections = [
 
 function CollectionsPage() {
   const pageRef = useRef(null);
-  const progressRef = useRef(0);
-  const rafRef = useRef(null);
-
-  const [progress, setProgress] = useState(0);
   const [isOrganicOpen, setIsOrganicOpen] = useState(false);
 
   useEffect(() => {
@@ -74,208 +70,16 @@ function CollectionsPage() {
     };
   }, [isOrganicOpen]);
 
-  /* =========================================
-     PAGE ENTRANCE
-  ========================================= */
-
   useEffect(() => {
     const page = pageRef.current;
+    if (!page) return undefined;
 
-    if (!page) return;
-
-    const timer = setTimeout(() => {
+    const timer = window.setTimeout(() => {
       page.classList.add("collections-page-visible");
     }, 80);
 
-    return () => clearTimeout(timer);
+    return () => window.clearTimeout(timer);
   }, []);
-
-  /* =========================================
-     LENIS / SCROLL TRANSITION
-  ========================================= */
-
-  useEffect(() => {
-    const calculateProgress = (scrollValue) => {
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
-
-      rafRef.current = requestAnimationFrame(() => {
-        const page = pageRef.current;
-
-        if (!page) return;
-
-        /*
-         * Collections page begins at its own document position.
-         * This keeps the effect correct when arriving from another
-         * React route as well as after a fresh reload.
-         */
-
-        const pageTop =
-          page.getBoundingClientRect().top + scrollValue;
-
-        const distance = Math.max(
-          window.innerHeight * 0.9,
-          500
-        );
-
-        const travelled = Math.max(
-          0,
-          scrollValue - pageTop
-        );
-
-        const nextProgress = Math.min(
-          Math.max(travelled / distance, 0),
-          1
-        );
-
-        if (
-          Math.abs(
-            nextProgress - progressRef.current
-          ) > 0.001
-        ) {
-          progressRef.current = nextProgress;
-          setProgress(nextProgress);
-        }
-      });
-    };
-
-    const handleLenisScroll = (event) => {
-      calculateProgress(event.scroll);
-    };
-
-    let subscribed = false;
-    let retryTimer = null;
-
-    const subscribeToLenis = () => {
-      if (
-        subscribed ||
-        !window.lenis
-      ) {
-        return;
-      }
-
-      window.lenis.on(
-        "scroll",
-        handleLenisScroll
-      );
-
-      subscribed = true;
-
-      calculateProgress(
-        window.lenis.scroll || 0
-      );
-    };
-
-    subscribeToLenis();
-
-    /*
-     * SmoothScroll mounts at the same time as the route.
-     * Retry briefly in case Lenis has not been created yet.
-     */
-
-    if (!subscribed) {
-      retryTimer = setInterval(() => {
-        subscribeToLenis();
-
-        if (subscribed) {
-          clearInterval(retryTimer);
-          retryTimer = null;
-        }
-      }, 50);
-    }
-
-    /*
-     * Native fallback if Lenis is unavailable.
-     */
-
-    const handleNativeScroll = () => {
-      if (!window.lenis) {
-        calculateProgress(
-          window.scrollY || 0
-        );
-      }
-    };
-
-    const handleResize = () => {
-      calculateProgress(
-        window.lenis?.scroll ||
-        window.scrollY ||
-        0
-      );
-    };
-
-    window.addEventListener(
-      "scroll",
-      handleNativeScroll,
-      { passive: true }
-    );
-
-    window.addEventListener(
-      "resize",
-      handleResize
-    );
-
-    handleResize();
-
-    return () => {
-      if (retryTimer) {
-        clearInterval(retryTimer);
-      }
-
-      if (
-        subscribed &&
-        window.lenis
-      ) {
-        window.lenis.off(
-          "scroll",
-          handleLenisScroll
-        );
-      }
-
-      window.removeEventListener(
-        "scroll",
-        handleNativeScroll
-      );
-
-      window.removeEventListener(
-        "resize",
-        handleResize
-      );
-
-      if (rafRef.current) {
-        cancelAnimationFrame(
-          rafRef.current
-        );
-      }
-    };
-  }, []);
-
-  /* =========================================
-     PREMIUM EASING
-  ========================================= */
-
-  const eased =
-    progress * progress *
-    (3 - 2 * progress);
-
-  const curtainX =
-    100 - eased * 100;
-
-  const heroImageX =
-    eased * -2.5;
-
-  const heroImageScale =
-    1 + eased * 0.025;
-
-  const heroContentX =
-    eased * -45;
-
-  const heroContentOpacity =
-    Math.max(
-      0,
-      1 - eased * 1.15
-    );
 
   return (
     <main
@@ -297,12 +101,6 @@ function CollectionsPage() {
           playsInline
           preload="auto"
           poster="/images/products/products-hero-poster.jpg"
-          style={{
-            transform: `
-              translate3d(${heroImageX}%, 0, 0)
-              scale(${heroImageScale})
-            `,
-          }}
         >
           <source
             src="/videos/ceramic-hero-02.mp4"
@@ -321,16 +119,6 @@ function CollectionsPage() {
 
         <div
           className="collections-page-hero-content"
-          style={{
-            transform: `
-              translate3d(
-                ${heroContentX}px,
-                -50%,
-                0
-              )
-            `,
-            opacity: heroContentOpacity,
-          }}
         >
 
           <p className="collections-page-label">
@@ -367,13 +155,6 @@ function CollectionsPage() {
 
         <div
           className="collections-page-hero-meta"
-          style={{
-            opacity:
-              Math.max(
-                0,
-                1 - eased * 1.2
-              ),
-          }}
         >
 
           <span>
@@ -386,34 +167,6 @@ function CollectionsPage() {
 
           <span>
             SCROLL TO EXPLORE ↓
-          </span>
-
-        </div>
-
-        {/* =========================================
-            HORIZONTAL CURTAIN
-        ========================================= */}
-
-        <div
-          className="collections-horizontal-curtain"
-          aria-hidden="true"
-          style={{
-            transform: `
-              translate3d(
-                ${curtainX}%,
-                0,
-                0
-              )
-            `,
-          }}
-        >
-
-          <div
-            className="collections-horizontal-curtain-line"
-          />
-
-          <span>
-            VED EXIM · COLLECTIONS
           </span>
 
         </div>
@@ -568,7 +321,7 @@ function CollectionsPage() {
             >
               <div className="collection-page-image organic-powder-collection-image">
                 <img
-                  src="/images/garlic-powder.png"
+                  src="/images/garlic-powder-product.png"
                   alt="Organic powders collection"
                   loading="lazy"
                 />
@@ -620,6 +373,7 @@ function CollectionsPage() {
               role="dialog"
               aria-modal="true"
               aria-labelledby="organic-powder-modal-title"
+              data-lenis-prevent
             >
               <button
                 type="button"
