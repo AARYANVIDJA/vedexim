@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import "./Collections.css";
 import SplitHeading from "../components/SplitHeading";
 
-const WHATSAPP_NUMBER = "919909026328";
-const EMAIL_ADDRESS = "vedeximmorbi@gmail.com";
+const WHATSAPP_NUMBER = "916353992729";
+const EMAIL_ADDRESS = "vedeximmorbi1@gmail.com";
 
 const collections = [
   

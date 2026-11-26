@@ -104,8 +104,8 @@ function Footer() {
           </div>
 
           <div className="footer-support">
-            <a href="tel:+919909026328">
-              <strong>T :</strong> +91 9163539 92729
+            <a href="tel:+916353992729">
+              <strong>T :</strong> +91 6353 992 729
             </a>
 
             <a href="mailto:vedeximmorbi1@gmail.com">

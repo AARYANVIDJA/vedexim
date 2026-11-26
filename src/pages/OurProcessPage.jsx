@@ -58,7 +58,7 @@ const processSteps = [
     detail:
       "Careful drying reduces the risk of deformation and cracking during later thermal processing.",
     image:
-      "https://www.thehawk.in/_next/image?q=75&url=https%3A%2F%2Fd2py10ayqu2jji.cloudfront.net%2Fd873dcff-2349-4af5-98c4-03aace2a1452-202601053628759-b54fd020-b014-4827-ad07-4b653d573e7f.jpeg&w=3840",
+      "https://www.platinumtiles.in/uploads/infrastructure/o_1bo1pcmav1jnraui19b5ok712lui.jpg",
   },
   {
     number: "06",
@@ -91,7 +91,7 @@ const processSteps = [
     detail:
       "Inspection ensures that only products meeting the required specifications move forward.",
     image:
-      "https://www.thehawk.in/_next/image?q=75&url=https%3A%2F%2Fd2py10ayqu2jji.cloudfront.net%2Fd873dcff-2349-4af5-98c4-03aace2a1452-202601053628759-b54fd020-b014-4827-ad07-4b653d573e7f.jpeg&w=3840",
+      "https://www.marbizsurfaces.com/public/images/blog/17691677500_Tile-manufacturing-plant-in-Morbi.jpg",
   },
   {
     number: "09",
@@ -146,53 +146,6 @@ function OurProcessPage() {
     };
   }, [isPageLoading]);
   const [activeStep, setActiveStep] = useState(0);
-  const [heroProgress, setHeroProgress] = useState(0);
-
-  useEffect(() => {
-    let raf = 0;
-
-    const updateHeroProgress = () => {
-      const hero = document.querySelector(".process-hero");
-      if (!hero) return;
-
-      const range = Math.max(1, hero.offsetHeight - window.innerHeight);
-      const progress = Math.min(1, Math.max(0, window.scrollY / range));
-      setHeroProgress(progress);
-
-      const viewport = hero.querySelector(".process-hero-viewport");
-      const curtain = hero.querySelector(".process-horizontal-curtain");
-      const media = hero.querySelector(".process-hero-media");
-      const content = hero.querySelector(".process-hero-content");
-      const overlay = hero.querySelector(".process-hero-overlay");
-
-      if (viewport) viewport.style.setProperty("--hero-progress", progress.toFixed(4));
-      if (curtain) curtain.style.transform = `translate3d(${progress * 100}%, 0, 0)`;
-      if (media) media.style.transform = `scale(${1 + progress * 0.06})`;
-      if (content) {
-        content.style.transform = `translate3d(0, ${progress * -8}%, 0)`;
-        content.style.opacity = String(1 - progress * 0.2);
-      }
-      if (overlay) overlay.style.opacity = String(1 - progress * 0.12);
-    };
-
-    const onScroll = () => {
-      if (raf) return;
-      raf = window.requestAnimationFrame(() => {
-        raf = 0;
-        updateHeroProgress();
-      });
-    };
-
-    updateHeroProgress();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (raf) window.cancelAnimationFrame(raf);
-    };
-  }, []);
 
   useEffect(() => {
     const steps = document.querySelectorAll(".process-stage-card");
@@ -243,26 +196,26 @@ function OurProcessPage() {
       <section className="process-hero">
         <div className="process-hero-viewport">
           <div className="process-hero-media process-hero-video-wrap">
-          <video
-            className="process-hero-video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster={processSteps[0].image}
-            aria-label="Ceramic tile manufacturing process"
-            onError={(event) => event.currentTarget.classList.add("video-failed")}
-          >
-            <source src={processHeroVideo} type="video/mp4" />
-          </video>
+            <video
+              className="process-hero-video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              poster={processSteps[0].image}
+              aria-label="Ceramic tile manufacturing process"
+              onError={(event) => event.currentTarget.classList.add("video-failed")}
+            >
+              <source src={processHeroVideo} type="video/mp4" />
+            </video>
 
-          <img
-            className="process-hero-fallback"
-            src={processSteps[0].image}
-            alt="Ceramic manufacturing process"
-          />
-        </div>
+            <img
+              className="process-hero-fallback"
+              src={processSteps[0].image}
+              alt="Ceramic manufacturing process"
+            />
+          </div>
 
         <div className="process-hero-overlay" />
 
@@ -299,14 +252,6 @@ function OurProcessPage() {
           <span>CRAFT · TECHNOLOGY · PRECISION</span>
         </div>
 
-          <div className="process-hero-progress">
-            <span style={{ transform: `scaleX(${Math.max(0.08, heroProgress)})` }} />
-          </div>
-
-          <div className="process-horizontal-curtain" aria-hidden="true">
-            <div className="process-horizontal-curtain-line" />
-            <span>VED EXIM · CERAMIC PROCESS</span>
-          </div>
         </div>
       </section>
 
@@ -409,7 +354,6 @@ function OurProcessPage() {
                   alt={`${step.title} in ceramic manufacturing`}
                   loading={index < 4 ? "eager" : "lazy"}
                 />
-                <span className="process-image-arrow">↗</span>
               </div>
 
               <p className="process-stage-description">{step.description}</p>

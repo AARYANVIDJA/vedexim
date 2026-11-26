@@ -29,7 +29,7 @@ body {
 
   font-family: Arial, Helvetica, sans-serif;
 
-  overflow-x: hidden;
+  overflow-x: clip;
 
   -webkit-font-smoothing: antialiased;
 
@@ -40,10 +40,16 @@ body.menu-open {
   overflow: hidden;
 }
 
+body.menu-open .whatsapp-button,
+body.menu-open .instagram-float-button {
+  background: #ffffff;
+  color: #171614;
+}
+
 #root {
   width: 100%;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 main {

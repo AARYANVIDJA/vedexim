@@ -36,12 +36,33 @@ const products = [
     name: "Plain White",
     image: "/images/products/16%20x%2016/Palin%20White.png",
   },
+  {
+    id: "04",
+    category: "FLOOR TILES",
+    size: "12 X 12",
+    name: "Plain White",
+    image: "/images/products/12%20x%2012/Palin%20White.png",
+  },
+  {
+    id: "05",
+    category: "FLOOR TILES",
+    size: "12 X 12",
+    name: "Stone",
+    image: "/images/products/12%20x%2012/Stone.png",
+  },
+  {
+    id: "06",
+    category: "FLOOR TILES",
+    size: "16 X 16",
+    name: "Plain White",
+    image: "/images/products/16%20x%2016/Palin%20White.png",
+  },
 ];
 
-const PRODUCT_INQUIRY_EMAIL = "vedeximmorbi@gmail.com";
+const PRODUCT_INQUIRY_EMAIL = "vedeximmorbi1@gmail.com";
 
 function getProductWhatsAppUrl(product) {
-  const phoneNumber = "919909026328";
+  const phoneNumber = "916353992729";
   const specs = [
     product.category && `Category: ${product.category}`,
     product.size && `Size: ${product.size}`,

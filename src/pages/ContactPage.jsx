@@ -1,17 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 import "./ContactPage.css";
 
 function ContactPage() {
-  const pageRef = useRef(null);
-  const curtainRafRef = useRef(null);
-  const heroRef = useRef(null);
-
   const [showInquiryPopup, setShowInquiryPopup] = useState(false);
   const [sendingInquiry, setSendingInquiry] = useState(false);
   const [inquirySent, setInquirySent] = useState(false);
-  const [revealProgress, setRevealProgress] = useState(0);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -23,59 +18,6 @@ function ContactPage() {
     quantity: "",
     message: "",
   });
-
-  useEffect(() => {
-    const page = pageRef.current;
-
-    if (!page) return;
-
-    const timer = setTimeout(() => {
-      page.classList.add("contact-page-visible");
-    }, 80);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const updateReveal = () => {
-      if (curtainRafRef.current) {
-        cancelAnimationFrame(curtainRafRef.current);
-      }
-
-      curtainRafRef.current = requestAnimationFrame(() => {
-        curtainRafRef.current = null;
-
-        const hero = heroRef.current;
-        if (!hero) return;
-
-        const rect = hero.getBoundingClientRect();
-        const distance = Math.max(window.innerHeight * 0.9, 520);
-        const travelled = Math.max(0, -rect.top);
-
-        setRevealProgress(
-          Math.min(Math.max(travelled / distance, 0), 1)
-        );
-      });
-    };
-
-    window.addEventListener("scroll", updateReveal, { passive: true });
-    window.addEventListener("resize", updateReveal);
-    updateReveal();
-
-    return () => {
-      window.removeEventListener("scroll", updateReveal);
-      window.removeEventListener("resize", updateReveal);
-
-      if (curtainRafRef.current) {
-        cancelAnimationFrame(curtainRafRef.current);
-        curtainRafRef.current = null;
-      }
-    };
-  }, []);
-
-  const eased =
-    revealProgress * revealProgress * (3 - 2 * revealProgress);
-  const curtainX = Math.max(0, Math.min(100, 100 - eased * 100));
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -129,7 +71,7 @@ function ContactPage() {
         "YOUR_EMAILJS_SERVICE_ID",
         "YOUR_EMAILJS_TEMPLATE_ID",
         {
-          to_email: "vedeximmorbi@gmail.com",
+          to_email: "vedeximmorbi1@gmail.com",
           from_name: formData.name,
           from_email: formData.email,
           company: formData.company,
@@ -188,14 +130,13 @@ function ContactPage() {
   return (
     <main
       className="contact-page"
-      ref={pageRef}
     >
 
       {/* =================================================
           HERO
       ================================================= */}
 
-      <section className="contact-page-hero" ref={heroRef}>
+      <section className="contact-page-hero">
 
         <div className="contact-page-hero-background">
 
@@ -252,17 +193,6 @@ function ContactPage() {
 
         </div>
 
-        <div
-          className="contact-hero-transition"
-          aria-hidden="true"
-          style={{
-            transform: `translate3d(calc(${curtainX}% + 2px), 0, 0)`,
-            opacity: revealProgress > 0.001 ? 1 : 0,
-          }}
-        >
-          <div className="contact-hero-transition-line" />
-          <span>VED EXIM · CONTACT</span>
-        </div>
       </section>
 
 
@@ -956,7 +886,7 @@ function ContactPage() {
           <div className="contact-final-links">
 
             <a
-              href="mailto:vedeximmorbi@gmail.com"
+              href="mailto:vedeximmorbi1@gmail.com"
             >
               EMAIL US
               <span>↗</span>

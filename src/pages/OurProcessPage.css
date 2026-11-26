@@ -3166,7 +3166,7 @@ body.process-loader-active { overflow: hidden !important; }
 .process-page {
   position: relative !important;
   width: 100% !important;
-  overflow-x: hidden !important;
+  overflow-x: clip !important;
   overflow-y: visible !important;
   background: #f3f0ea !important;
 }
@@ -3175,22 +3175,23 @@ body.process-loader-active { overflow: hidden !important; }
    the actual Process hero viewport. */
 .process-hero {
   position: relative !important;
-  height: 200vh !important;
-  min-height: 200vh !important;
+  height: 100svh !important;
+  min-height: 100svh !important;
   max-height: none !important;
   padding: 0 !important;
   display: block !important;
-  overflow: visible !important;
+  overflow: hidden !important;
   background: #171614 !important;
   isolation: isolate !important;
 }
 
 .process-hero-viewport {
-  position: sticky !important;
+  position: absolute !important;
+  inset: 0 !important;
   top: 0 !important;
   width: 100% !important;
-  height: 100vh !important;
-  min-height: 100vh !important;
+  height: 100% !important;
+  min-height: 100% !important;
   overflow: hidden !important;
   display: block !important;
   background: #171614 !important;
@@ -3332,8 +3333,8 @@ body.process-loader-active { overflow: hidden !important; }
 
 @media (max-width: 650px) {
   .process-hero {
-    height: 180svh !important;
-    min-height: 180svh !important;
+    height: 100svh !important;
+    min-height: 100svh !important;
   }
 
   .process-hero-viewport {

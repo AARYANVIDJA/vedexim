@@ -53,7 +53,7 @@ function Contact() {
         "YOUR_EMAILJS_SERVICE_ID",
         "YOUR_EMAILJS_TEMPLATE_ID",
         {
-          to_email: "vedeximmorbi@gmail.com",
+          to_email: "vedeximmorbi1@gmail.com",
           from_name: formData.get("name"),
           from_email: formData.get("email"),
           phone: formData.get("phone"),
@@ -130,12 +130,12 @@ function Contact() {
 
           <div className="contact-details">
 
-            <a href="mailto:vedeximmorbi@gmail.com">
-              vedeximmorbi@gmail.com
+            <a href="mailto:vedeximmorbi1@gmail.com">
+              vedeximmorbi1@gmail.com
             </a>
 
-            <a href="tel:+919909026328">
-              +91 99090 26328
+            <a href="tel:+916353992729">
+              +91 6353 992 729
             </a>
 
           </div>

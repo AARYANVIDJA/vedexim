@@ -39,7 +39,7 @@ const products = [
 ];
 
 function getProductWhatsAppUrl(product) {
-  const phoneNumber = "919909026328";
+  const phoneNumber = "916353992729";
   const message = `Hello Ved Exim, I would like to inquire about *${product.name}* (${product.category}).\n\nPlease share more details, pricing, and availability.`;
   return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 }
