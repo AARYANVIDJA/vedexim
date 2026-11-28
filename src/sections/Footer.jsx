@@ -1,3 +1,4 @@
+import { Mail, MessageCircle, Phone } from "lucide-react";
 import "./Footer.css";
 
 function Footer() {
@@ -105,15 +106,18 @@ function Footer() {
 
           <div className="footer-support">
             <a href="tel:+916353992729">
-              <strong>T :</strong> +91 6353 992 729
+              <Phone size={16} strokeWidth={1.7} aria-hidden="true" />
+              <span>+91 6353 992 729</span>
             </a>
 
             <a href="mailto:vedeximmorbi1@gmail.com">
-              <strong>E :</strong> vedeximmorbi1@gmail.com
+              <Mail size={16} strokeWidth={1.7} aria-hidden="true" />
+              <span>vedeximmorbi1@gmail.com</span>
             </a>
 
             <a href="https://wa.me/916353992729" target="_blank" rel="noopener noreferrer">
-              <strong>W :</strong> WhatsApp Us
+              <MessageCircle size={16} strokeWidth={1.7} aria-hidden="true" />
+              <span>WhatsApp Us</span>
             </a>
           </div>
         </div>
