@@ -228,7 +228,7 @@ function AboutPage() {
         <div className="about-material-image">
 
           <img
-            src="/images/products/stone/stone-01.png"
+            src="/images/products/12%20x%2012/Stone.png"
             alt="VED EXIM ceramic material"
           />
 
