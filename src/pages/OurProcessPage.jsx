@@ -118,33 +118,11 @@ const processSteps = [
 ];
 
 function OurProcessPage() {
-  const [isPageLoading, setIsPageLoading] = useState(() => {
-    try {
-      const navigation = performance.getEntriesByType("navigation")[0];
-      return navigation?.type === "reload";
-    } catch {
-      return false;
-    }
-  });
-
   useEffect(() => {
     // Always enter the Process page at the top so a previous page's
     // scroll position cannot expose a blank/black transition frame.
     window.scrollTo(0, 0);
-
-    if (!isPageLoading) return undefined;
-
-    document.body.classList.add("process-loader-active");
-    const timer = window.setTimeout(() => {
-      setIsPageLoading(false);
-      document.body.classList.remove("process-loader-active");
-    }, 1050);
-
-    return () => {
-      window.clearTimeout(timer);
-      document.body.classList.remove("process-loader-active");
-    };
-  }, [isPageLoading]);
+  }, []);
   const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
@@ -171,25 +149,6 @@ function OurProcessPage() {
 
   return (
     <main className="process-page">
-      {isPageLoading && (
-        <div className="process-page-loader" aria-label="Loading VED EXIM">
-          <div className="process-loader-inner">
-            <div className="process-loader-logo-wrap">
-              <img
-                src="/logo.png"
-                alt="VED EXIM"
-                className="process-loader-logo"
-                onError={(event) => { event.currentTarget.style.display = "none"; }}
-              />
-              <span className="process-loader-logo-fallback">VED EXIM</span>
-            </div>
-            <div className="process-loader-progress">
-              <span className="process-loader-progress-bar" />
-            </div>
-            <div className="process-loader-percent">100%</div>
-          </div>
-        </div>
-      )}
       {/* =================================================
           CINEMATIC HERO
       ================================================= */}
