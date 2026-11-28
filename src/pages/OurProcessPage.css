@@ -3082,85 +3082,9 @@
 
 
 /* =========================================================
-   VED EXIM — REFRESH LOADER
-   ========================================================= */
-body.process-loader-active { overflow: hidden !important; }
-
-.process-page-loader {
-  position: fixed;
-  inset: 0;
-  z-index: 999999;
-  display: grid;
-  place-items: center;
-  background: #171614;
-  color: #f4f1eb;
-  opacity: 1;
-  animation: processLoaderExit .55s cubic-bezier(.76,0,.24,1) 1.12s forwards;
-}
-.process-loader-inner {
-  width: min(320px, 72vw);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 22px;
-}
-.process-loader-logo-wrap {
-  min-height: 82px;
-  display: grid;
-  place-items: center;
-  position: relative;
-  opacity: 0;
-  transform: translateY(16px) scale(.94);
-  animation: processLoaderLogoIn .65s cubic-bezier(.22,1,.36,1) .05s forwards;
-}
-.process-loader-logo {
-  width: min(190px, 52vw);
-  max-height: 92px;
-  object-fit: contain;
-  display: block;
-}
-.process-loader-logo-fallback {
-  position: absolute;
-  white-space: nowrap;
-  font-family: Georgia, serif;
-  font-size: clamp(24px, 5vw, 40px);
-  letter-spacing: .12em;
-}
-.process-loader-progress {
-  width: 100%;
-  height: 1px;
-  overflow: hidden;
-  background: rgba(244,241,235,.22);
-}
-.process-loader-progress-bar {
-  display: block;
-  width: 0;
-  height: 100%;
-  background: #f4f1eb;
-  animation: processLoaderProgress 1.05s cubic-bezier(.22,1,.36,1) .08s forwards;
-}
-.process-loader-percent {
-  font: 600 10px/1 Arial, sans-serif;
-  letter-spacing: .25em;
-  opacity: 0;
-  animation: processLoaderTextIn .35s ease .4s forwards;
-}
-@keyframes processLoaderLogoIn { to { opacity:1; transform:translateY(0) scale(1); } }
-@keyframes processLoaderProgress { to { width:100%; } }
-@keyframes processLoaderTextIn { to { opacity:1; } }
-@keyframes processLoaderExit {
-  0% { opacity:1; visibility:visible; }
-  100% { opacity:0; visibility:hidden; pointer-events:none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .process-page-loader, .process-loader-logo-wrap, .process-loader-progress-bar, .process-loader-percent { animation-duration:.01ms !important; animation-delay:0ms !important; }
-}
-
-
-/* =========================================================
    FINAL ROUTE FIX — NO BLACK SCREEN WHEN ENTERING PROCESS
-   Loader runs on browser refresh only. SPA navigation goes
-   directly to the visible hero and starts at scrollY = 0.
+   SPA navigation goes directly to the visible hero and starts
+   at scrollY = 0.
 ========================================================= */
 
 .process-page {
@@ -3323,12 +3247,6 @@ body.process-loader-active { overflow: hidden !important; }
   visibility: visible !important;
   transform: none !important;
   clip-path: none !important;
-}
-
-/* Refresh loader should never affect route navigation because the
-   JSX only mounts it for a real browser reload. */
-.process-page-loader {
-  z-index: 999999 !important;
 }
 
 @media (max-width: 650px) {
