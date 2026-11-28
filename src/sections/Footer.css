@@ -210,6 +210,9 @@
 
 .footer-support a {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   width: fit-content;
   color: rgba(255,255,255,.82);
   text-decoration: none;
@@ -217,9 +220,14 @@
   line-height: 1.5;
 }
 
-.footer-support strong {
-  font-weight: 700;
-  margin-right: 3px;
+.footer-support a svg {
+  flex: 0 0 16px;
+  color: #c9b99b;
+  transition: color .3s ease;
+}
+
+.footer-support a:hover svg {
+  color: #fff;
 }
 
 /* =====================================================
